@@ -28,7 +28,7 @@ double Performance::payoff(const PnlMat *path)
 	PnlVect *STi = pnl_vect_create_from_zero(this->size_);
 	PnlVect *STi_1 = pnl_vect_create_from_zero(this->size_);
 	double payoff = 0;
-	for(int i=1; i <= this->TimeSteps_; i++)
+	for(int i=0; i <= this->TimeSteps_; i++)
 	{
 		pnl_mat_get_row(STi,path,i);
 		pnl_mat_get_row(STi_1,path,i-1);

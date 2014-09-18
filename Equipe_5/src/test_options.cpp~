@@ -38,7 +38,7 @@ int main(int argc, char **argv)
 	//trajectoire test
 	PnlMat *path = pnl_mat_create_from_scalar(opt_->TimeSteps_+1,opt_->size_,44);
 	double payoff = opt_->payoff(path);
-	cout << payoff << endl;
+	
 	pnl_mat_free(&path);
 	delete opt_;
   exit(0);

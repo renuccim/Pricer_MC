@@ -2,6 +2,7 @@
 #include "basket.h"
 
 using namespace std;
+#define _DEBUG
 
 Basket::Basket(Parser *P)
 {
