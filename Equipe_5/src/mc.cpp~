@@ -70,6 +70,7 @@ void MonteCarlo::price(double &prix, double &ic)
 
 void MonteCarlo::price(const PnlMat *past, double t, double &prix, double &ic)
 {
+	int pastSize = floor( (N/T)*t );
 	PnlMat *generatedPath = pnl_mat_create(this->opt_->TimeSteps_+1,this->opt_->size_);
 	double payoff = 0;
 	double sumPayoff = 0;

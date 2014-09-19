@@ -76,7 +76,6 @@ void BS::asset(PnlMat *path, double t, int N, double T,
              PnlRng *rng, const PnlMat *past)
 {
 	int pastSize = floor( (N/T)*t );
-	double step = T/N;
 	// Copy of the past on the generated path
 	for(int ti=0; ti <= pastSize; ti++)
 	{
