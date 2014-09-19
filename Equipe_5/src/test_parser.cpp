@@ -38,5 +38,6 @@ int main(int argc, char **argv)
   pnl_vect_free(&spot);
   pnl_vect_free(&sigma);
   pnl_vect_free(&divid);
+
   exit(0);
 }

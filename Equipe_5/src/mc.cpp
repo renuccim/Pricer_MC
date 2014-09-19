@@ -1,5 +1,5 @@
 #include <iostream>
-#include <time->h>
+#include <time.h>
 #include "mc.h"
 
 using namespace std;

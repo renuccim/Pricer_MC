@@ -15,7 +15,7 @@ public:
   PnlVect *payoffCoefficients_; /// Coefficients intervenant dans le calcul du payoff
 
 	Basket(Parser *P);
-	~Basket();
+	virtual ~Basket();
 
   /**
    * Calcule la valeur du payoff sur la trajectoire

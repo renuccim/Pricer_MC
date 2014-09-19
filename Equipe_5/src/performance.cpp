@@ -47,6 +47,5 @@ void Performance::print()
 	cout << "maturity " << this->T_ << endl;
 	cout << "timestep number " << this->TimeSteps_ << endl;
 	cout << "option size " << this->size_ << endl;
-	//cout << "K " << this->K_ << endl;
 	cout << "payoff coefficients "; pnl_vect_print_asrow(this->payoffCoefficients_);
 }

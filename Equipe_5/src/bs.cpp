@@ -1,10 +1,10 @@
 #include <iostream>
-#include <time->h>
-#include "BS.h"
+#include <time.h>
+#include "bs.h"
 
 using namespace std;
 
-BS::BS(Parser myParser)
+BS::BS(Parser *P)
 {
 	P->extract("option size",this->size_);
 	P->extract("interest rate",this->r_);
@@ -14,12 +14,12 @@ BS::BS(Parser myParser)
 	P->extract("trend",this->trend_, this->size_);
 	// The cholesky factorization
 	L = pnl_mat_create_from_scalar(this->size_,this->size_,1);
-	for(int i=1; i <= this->size_; i++)
+	for(int i=0; i < this->size_; i++)
 	{
-		for(int j=1; j <= this->size_; j++
+		for(int j=0; j < this->size_; j++)
 		{
 			if (i!=j)
-				MLET(Correlation,i,j) = this->rho_;
+				MLET(L,i,j) = this->rho_;
 		}
 	}
 	pnl_mat_chol(L);
@@ -61,7 +61,7 @@ void BS::asset(PnlMat *path, double T, int N, PnlRng *rng)
 		for(int d=1; d <= this->size_; d++)
 		{
 			pnl_mat_get_col(Ld,L,d);
-			prodScal = pnl_vect_scalar_prod(Ld,G)
+			prodScal = pnl_vect_scalar_prod(Ld,G);
 			sigma_d = GET(this->spot_,d);
 			MLET(path,d,ti) = MGET(path,d,ti-1)*exp( (this->r_-pow(sigma_d,2)/2)*step + sigma_d*sqrt(step)*prodScal );
 		}
