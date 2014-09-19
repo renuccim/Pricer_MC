@@ -41,5 +41,6 @@ int main(int argc, char **argv)
 	cout << payoff << endl;
 	pnl_mat_free(&path);
 	delete opt_;
-  exit(0);
+	delete P;
+        exit(0);
 }

@@ -10,7 +10,7 @@
 class Performance : public Option
 {
 public:
-  double K_; /// Strike
+  //double K_; /// Strike
   PnlVect *payoffCoefficients_; /// Coefficients intervenant dans le calcul du payoff
 
 	Performance(Parser *P);
