@@ -2,8 +2,16 @@
 #define _MC_H
 
 #include "option.h"
+#include "asian.h"
+#include "basket.h"
+#include "barrier_l.h"
+#include "barrier_u.h"
+#include "barrier.h"
+#include "performance.h"
 #include "bs.h"
-#include <math.h>
+#include "parser.h"
+#include <cmath>
+#include <cassert>
 #include "pnl/pnl_random.h"
 
 class MonteCarlo
@@ -36,7 +44,7 @@ public:
    * @param[out] ic contient la largeur de l'intervalle
    * de confiance sur le calcul du prix
    */
-  void price(const PnlMat *past, double t, double &prix, double &ic);
+//  void price(const PnlMat *past, double t, double &prix, double &ic);
 };
 
 #endif /* _MC_H */

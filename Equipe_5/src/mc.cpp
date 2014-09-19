@@ -9,10 +9,10 @@ MonteCarlo::MonteCarlo(Parser *P)
 	// Construction de BS
 	this->mod_ = new BS(P);
 	// Construction de l'option
-	std::string optionType;
+	char *optionType;
 	P->extract("option type",optionType);
-	assert( ( strcmp(optionType,"basket") == 0) ) || ( strcmp(optionType,"asian") == 0) ) || ( strcmp(optionType,"barrier_l") == 0) ) ||
-		( strcmp(optionType,"barrier_u") == 0) ) || ( strcmp(optionType,"barrier") == 0) ) || ( strcmp(optionType,"performance") == 0) ) );
+	assert( (strcmp(optionType,"basket") == 0)  || (strcmp(optionType,"asian") == 0) || (strcmp(optionType,"barrier_l") == 0) ||
+		(strcmp(optionType,"barrier_u") == 0) || (strcmp(optionType,"barrier") == 0) || (strcmp(optionType,"performance") == 0) );
 	if ( strcmp(optionType,"basket") == 0)
 		this->opt_ = new Basket(P);
 	else if ( strcmp(optionType,"asian") == 0)
@@ -30,7 +30,7 @@ MonteCarlo::MonteCarlo(Parser *P)
 	pnl_rng_sseed(rng,time(NULL));
 	// Sample number et pas de difference finie
 	P->extract("sample number",this->samples_);
-	this->h = 0.1 ;
+	this->h_ = 0.1 ;
 }
 
 MonteCarlo::~MonteCarlo()
@@ -40,7 +40,7 @@ MonteCarlo::~MonteCarlo()
 #endif
 	pnl_rng_free(&rng);
 	delete this->mod_;
-	delete this->this->opt_;
+	delete this->opt_;
 #ifdef _DEBUG
 	cout << "~MonteCarlo() : Successfull call of pnl_rng_free" << endl;
 #endif
@@ -48,42 +48,44 @@ MonteCarlo::~MonteCarlo()
 
 void MonteCarlo::price(double &prix, double &ic)
 {
-	PnlMat *generatedPath = pnl_mat_create(this->this->opt_->size_,this->this->opt_->TimeSteps_+1);
+	PnlMat *generatedPath = pnl_mat_create(this->opt_->TimeSteps_+1,this->opt_->size_);
 	double payoff = 0;
 	double sumPayoff = 0;
 	double sumPayoffSquare = 0;
 	prix = 0;
 	ic = 0;
-	for(int nbSimulation=1; nbSimulation <= this->samples_; nbSimulation++)
+	for(int i=0; i < this->samples_; i++)
 	{
-		this->mod_->asset(generatedPath, this->this->opt_->T, this->this->opt_->TimeSteps_, this->rng);
-		payoff = this->opt->payoff(generatedPath);
+		this->mod_->asset(generatedPath, this->opt_->T_, this->opt_->TimeSteps_, this->rng);
+		payoff = this->opt_->payoff(generatedPath);
 		sumPayoff += payoff;
 		sumPayoffSquare += payoff*payoff;
 	}
-	prix = exp(-this->r_*this->opt->T_)*(sumPayoff/this->samples_);
-	double x = exp(-2*this->r_*this->opt->T_)*( (sumPayoffSquare/this->samples_) - (sumPayoff/this->samples_)*(sumPayoff/this->samples_) );
+	prix = exp(-this->mod_->r_*this->opt_->T_)*(sumPayoff/this->samples_);
+	double x = exp(-2*this->mod_->r_*this->opt_->T_)*( (sumPayoffSquare/this->samples_) - (sumPayoff/this->samples_)*(sumPayoff/this->samples_) );
 	ic = 2*1.96*x/sqrt(this->samples_);
 	pnl_mat_free(&generatedPath);
 }
 
+
 void MonteCarlo::price(const PnlMat *past, double t, double &prix, double &ic)
 {
-	PnlMat *generatedPath = pnl_mat_create(this->this->opt_->size_,this->this->opt_->TimeSteps_+1);
+	PnlMat *generatedPath = pnl_mat_create(this->opt_->TimeSteps_+1,this->opt_->size_);
 	double payoff = 0;
 	double sumPayoff = 0;
 	double sumPayoffSquare = 0;
 	prix = 0;
 	ic = 0;
-	for(int nbSimulation=1; nbSimulation <= this->samples_; nbSimulation++)
+	for(int i=0; i < this->samples_; i++)
 	{
-		this->mod_->asset(generatedPath, this->this->opt_->T, this->this->opt_->TimeSteps_, this->rng, past);
-		payoff = this->opt->payoff(generatedPath);
+		this->mod_->asset(generatedPath, this->opt_->T_, this->opt_->TimeSteps_, this->rng, past);
+		payoff = this->opt_->payoff(generatedPath);
 		sumPayoff += payoff;
 		sumPayoffSquare += payoff*payoff;
 	}
-	prix = exp(-this->r_*this->opt->T_)*(sumPayoff/this->samples_);
-	double x = exp(-2*this->r_*this->opt->T_)*( (sumPayoffSquare/this->samples_) - (sumPayoff/this->samples_)*(sumPayoff/this->samples_) );
+	prix = exp(-this->mod_->r_*this->opt_->T_)*(sumPayoff/this->samples_);
+	double x = exp(-2*this->mod_->r_*this->opt_->T_)*( (sumPayoffSquare/this->samples_) - (sumPayoff/this->samples_)*(sumPayoff/this->samples_) );
 	ic = 2*1.96*x/sqrt(this->samples_);
 	pnl_mat_free(&generatedPath);
 }
+

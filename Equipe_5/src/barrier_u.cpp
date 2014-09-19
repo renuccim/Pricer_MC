@@ -33,7 +33,7 @@ double Barrier_u::payoff(const PnlMat *path)
 	for(int ti=0; ti <= this->TimeSteps_; ti++)
 	{
 		pnl_mat_get_row(ST,path,ti);
-		for(int d=1; d<= this->size_; d++)
+		for(int d=0; d< this->size_; d++)
 		{
 			indicatrice = indicatrice && (GET(this->upperBarrier_,d) >= GET(ST,d));
 			if (!indicatrice)

@@ -284,6 +284,7 @@ bs-test: CMakeFiles/bs-test.dir/src/bs.cpp.o
 bs-test: CMakeFiles/bs-test.dir/src/parser.cpp.o
 bs-test: CMakeFiles/bs-test.dir/src/test_bs.cpp.o
 bs-test: CMakeFiles/bs-test.dir/build.make
+bs-test: /matieres/5MMPMP/pnl-1.7.1/build/lib/libpnl.so
 bs-test: CMakeFiles/bs-test.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --red --bold "Linking CXX executable bs-test"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/bs-test.dir/link.txt --verbose=$(VERBOSE)

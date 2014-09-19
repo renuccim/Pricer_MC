@@ -48,11 +48,13 @@ int main(int argc, char **argv)
 	//trajectoire test
 	PnlMat *path = pnl_mat_create_from_scalar(opt_->TimeSteps_+1,opt_->size_,0);
 
-	mod_->asset(path,opt_->T_, opt_->TimeSteps_+1, rng);
+	mod_->asset(path,opt_->T_, opt_->TimeSteps_, rng);
 		
 
 	pnl_mat_free(&path);
+	pnl_rng_free(&rng);
 	delete opt_;
 	delete mod_;
+	delete P;
   exit(0);
 }
