@@ -1,6 +1,5 @@
 #include <iostream>
 #include "parser.h"
-#include "bs.h"
 #include "option.h"
 #include "asian.h"
 #include "basket.h"
@@ -8,6 +7,8 @@
 #include "barrier_u.h"
 #include "barrier.h"
 #include "performance.h"
+#include "bs.h"
+#include "pnl/pnl_matrix.h"
 
 
 using namespace std;
@@ -15,11 +16,12 @@ using namespace std;
 int main(int argc, char **argv)
 {
   char *infile = argv[1];
+	char *outfile = argv[2];
   Parser *P = new Parser(infile);
-	char* optionType;
-	P->extract("option type",optionType);
 	
 	BS *mod_ = new BS(P);
+	char* optionType;
+	P->extract("option type",optionType);
 	
 	Option *opt_;
 	if ( strcmp(optionType,"basket") == 0)
@@ -34,19 +36,18 @@ int main(int argc, char **argv)
 		opt_ = new Barrier(P);
 	else
 		opt_ = new Performance(P);
-	opt_->print();
-	
 	// Generateur aleatoire
 	PnlRng *rng = pnl_rng_create(PNL_RNG_MERSENNE);
 	pnl_rng_sseed(rng,time(NULL));
 
 
-	//trajectoire test
+	//Simulation du passé ( on simule sur l'interval [O,T] pour pouvoir pricer à t dans [0,T] )
 	PnlMat *path = pnl_mat_create_from_scalar(opt_->TimeSteps_+1,opt_->size_,0);
-
 	mod_->asset(path,opt_->T_, opt_->TimeSteps_, rng);
-		
-
+	FILE *fp;
+	fp = fopen(outfile, "w");
+	pnl_mat_fprint(fp,path);
+	fclose(fp);
 	pnl_mat_free(&path);
 	pnl_rng_free(&rng);
 	delete opt_;

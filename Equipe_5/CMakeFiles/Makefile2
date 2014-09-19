@@ -91,13 +91,48 @@ clean: CMakeFiles/bs-test.dir/clean
 .PHONY : clean
 
 #=============================================================================
+# Target rules for target CMakeFiles/generate-past.dir
+
+# All Build rule for target.
+CMakeFiles/generate-past.dir/all:
+	$(MAKE) -f CMakeFiles/generate-past.dir/build.make CMakeFiles/generate-past.dir/depend
+	$(MAKE) -f CMakeFiles/generate-past.dir/build.make CMakeFiles/generate-past.dir/build
+	$(CMAKE_COMMAND) -E cmake_progress_report /user/7/.base/kachmatn/home/S5/Pricer_MC/Equipe_5/CMakeFiles  10 11 12 13 14 15 16 17 18
+	@echo "Built target generate-past"
+.PHONY : CMakeFiles/generate-past.dir/all
+
+# Include target in all.
+all: CMakeFiles/generate-past.dir/all
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/generate-past.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /user/7/.base/kachmatn/home/S5/Pricer_MC/Equipe_5/CMakeFiles 9
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/generate-past.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /user/7/.base/kachmatn/home/S5/Pricer_MC/Equipe_5/CMakeFiles 0
+.PHONY : CMakeFiles/generate-past.dir/rule
+
+# Convenience name for target.
+generate-past: CMakeFiles/generate-past.dir/rule
+.PHONY : generate-past
+
+# clean rule for target.
+CMakeFiles/generate-past.dir/clean:
+	$(MAKE) -f CMakeFiles/generate-past.dir/build.make CMakeFiles/generate-past.dir/clean
+.PHONY : CMakeFiles/generate-past.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/generate-past.dir/clean
+.PHONY : clean
+
+#=============================================================================
 # Target rules for target CMakeFiles/opt-test.dir
 
 # All Build rule for target.
 CMakeFiles/opt-test.dir/all:
 	$(MAKE) -f CMakeFiles/opt-test.dir/build.make CMakeFiles/opt-test.dir/depend
 	$(MAKE) -f CMakeFiles/opt-test.dir/build.make CMakeFiles/opt-test.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /user/7/.base/kachmatn/home/S5/Pricer_MC/Equipe_5/CMakeFiles  10 11 12 13 14 15 16 17
+	$(CMAKE_COMMAND) -E cmake_progress_report /user/7/.base/kachmatn/home/S5/Pricer_MC/Equipe_5/CMakeFiles  19 20 21 22 23 24 25 26
 	@echo "Built target opt-test"
 .PHONY : CMakeFiles/opt-test.dir/all
 
@@ -132,7 +167,7 @@ clean: CMakeFiles/opt-test.dir/clean
 CMakeFiles/parser-test.dir/all:
 	$(MAKE) -f CMakeFiles/parser-test.dir/build.make CMakeFiles/parser-test.dir/depend
 	$(MAKE) -f CMakeFiles/parser-test.dir/build.make CMakeFiles/parser-test.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /user/7/.base/kachmatn/home/S5/Pricer_MC/Equipe_5/CMakeFiles  18 19
+	$(CMAKE_COMMAND) -E cmake_progress_report /user/7/.base/kachmatn/home/S5/Pricer_MC/Equipe_5/CMakeFiles  27 28
 	@echo "Built target parser-test"
 .PHONY : CMakeFiles/parser-test.dir/all
 
@@ -167,7 +202,7 @@ clean: CMakeFiles/parser-test.dir/clean
 CMakeFiles/pricer.dir/all:
 	$(MAKE) -f CMakeFiles/pricer.dir/build.make CMakeFiles/pricer.dir/depend
 	$(MAKE) -f CMakeFiles/pricer.dir/build.make CMakeFiles/pricer.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /user/7/.base/kachmatn/home/S5/Pricer_MC/Equipe_5/CMakeFiles  20 21 22 23 24 25 26 27 28 29
+	$(CMAKE_COMMAND) -E cmake_progress_report /user/7/.base/kachmatn/home/S5/Pricer_MC/Equipe_5/CMakeFiles  29 30 31 32 33 34 35 36 37 38
 	@echo "Built target pricer"
 .PHONY : CMakeFiles/pricer.dir/all
 

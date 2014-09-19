@@ -156,6 +156,19 @@ bs-test/fast:
 .PHONY : bs-test/fast
 
 #=============================================================================
+# Target rules for targets named generate-past
+
+# Build rule for target.
+generate-past: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 generate-past
+.PHONY : generate-past
+
+# fast build rule for target.
+generate-past/fast:
+	$(MAKE) -f CMakeFiles/generate-past.dir/build.make CMakeFiles/generate-past.dir/build
+.PHONY : generate-past/fast
+
+#=============================================================================
 # Target rules for targets named opt-test
 
 # Build rule for target.
@@ -200,6 +213,7 @@ src/asian.o: src/asian.cpp.o
 # target to build an object file
 src/asian.cpp.o:
 	$(MAKE) -f CMakeFiles/bs-test.dir/build.make CMakeFiles/bs-test.dir/src/asian.cpp.o
+	$(MAKE) -f CMakeFiles/generate-past.dir/build.make CMakeFiles/generate-past.dir/src/asian.cpp.o
 	$(MAKE) -f CMakeFiles/opt-test.dir/build.make CMakeFiles/opt-test.dir/src/asian.cpp.o
 	$(MAKE) -f CMakeFiles/pricer.dir/build.make CMakeFiles/pricer.dir/src/asian.cpp.o
 .PHONY : src/asian.cpp.o
@@ -210,6 +224,7 @@ src/asian.i: src/asian.cpp.i
 # target to preprocess a source file
 src/asian.cpp.i:
 	$(MAKE) -f CMakeFiles/bs-test.dir/build.make CMakeFiles/bs-test.dir/src/asian.cpp.i
+	$(MAKE) -f CMakeFiles/generate-past.dir/build.make CMakeFiles/generate-past.dir/src/asian.cpp.i
 	$(MAKE) -f CMakeFiles/opt-test.dir/build.make CMakeFiles/opt-test.dir/src/asian.cpp.i
 	$(MAKE) -f CMakeFiles/pricer.dir/build.make CMakeFiles/pricer.dir/src/asian.cpp.i
 .PHONY : src/asian.cpp.i
@@ -220,6 +235,7 @@ src/asian.s: src/asian.cpp.s
 # target to generate assembly for a file
 src/asian.cpp.s:
 	$(MAKE) -f CMakeFiles/bs-test.dir/build.make CMakeFiles/bs-test.dir/src/asian.cpp.s
+	$(MAKE) -f CMakeFiles/generate-past.dir/build.make CMakeFiles/generate-past.dir/src/asian.cpp.s
 	$(MAKE) -f CMakeFiles/opt-test.dir/build.make CMakeFiles/opt-test.dir/src/asian.cpp.s
 	$(MAKE) -f CMakeFiles/pricer.dir/build.make CMakeFiles/pricer.dir/src/asian.cpp.s
 .PHONY : src/asian.cpp.s
@@ -230,6 +246,7 @@ src/barrier.o: src/barrier.cpp.o
 # target to build an object file
 src/barrier.cpp.o:
 	$(MAKE) -f CMakeFiles/bs-test.dir/build.make CMakeFiles/bs-test.dir/src/barrier.cpp.o
+	$(MAKE) -f CMakeFiles/generate-past.dir/build.make CMakeFiles/generate-past.dir/src/barrier.cpp.o
 	$(MAKE) -f CMakeFiles/opt-test.dir/build.make CMakeFiles/opt-test.dir/src/barrier.cpp.o
 	$(MAKE) -f CMakeFiles/pricer.dir/build.make CMakeFiles/pricer.dir/src/barrier.cpp.o
 .PHONY : src/barrier.cpp.o
@@ -240,6 +257,7 @@ src/barrier.i: src/barrier.cpp.i
 # target to preprocess a source file
 src/barrier.cpp.i:
 	$(MAKE) -f CMakeFiles/bs-test.dir/build.make CMakeFiles/bs-test.dir/src/barrier.cpp.i
+	$(MAKE) -f CMakeFiles/generate-past.dir/build.make CMakeFiles/generate-past.dir/src/barrier.cpp.i
 	$(MAKE) -f CMakeFiles/opt-test.dir/build.make CMakeFiles/opt-test.dir/src/barrier.cpp.i
 	$(MAKE) -f CMakeFiles/pricer.dir/build.make CMakeFiles/pricer.dir/src/barrier.cpp.i
 .PHONY : src/barrier.cpp.i
@@ -250,6 +268,7 @@ src/barrier.s: src/barrier.cpp.s
 # target to generate assembly for a file
 src/barrier.cpp.s:
 	$(MAKE) -f CMakeFiles/bs-test.dir/build.make CMakeFiles/bs-test.dir/src/barrier.cpp.s
+	$(MAKE) -f CMakeFiles/generate-past.dir/build.make CMakeFiles/generate-past.dir/src/barrier.cpp.s
 	$(MAKE) -f CMakeFiles/opt-test.dir/build.make CMakeFiles/opt-test.dir/src/barrier.cpp.s
 	$(MAKE) -f CMakeFiles/pricer.dir/build.make CMakeFiles/pricer.dir/src/barrier.cpp.s
 .PHONY : src/barrier.cpp.s
@@ -260,6 +279,7 @@ src/barrier_l.o: src/barrier_l.cpp.o
 # target to build an object file
 src/barrier_l.cpp.o:
 	$(MAKE) -f CMakeFiles/bs-test.dir/build.make CMakeFiles/bs-test.dir/src/barrier_l.cpp.o
+	$(MAKE) -f CMakeFiles/generate-past.dir/build.make CMakeFiles/generate-past.dir/src/barrier_l.cpp.o
 	$(MAKE) -f CMakeFiles/opt-test.dir/build.make CMakeFiles/opt-test.dir/src/barrier_l.cpp.o
 	$(MAKE) -f CMakeFiles/pricer.dir/build.make CMakeFiles/pricer.dir/src/barrier_l.cpp.o
 .PHONY : src/barrier_l.cpp.o
@@ -270,6 +290,7 @@ src/barrier_l.i: src/barrier_l.cpp.i
 # target to preprocess a source file
 src/barrier_l.cpp.i:
 	$(MAKE) -f CMakeFiles/bs-test.dir/build.make CMakeFiles/bs-test.dir/src/barrier_l.cpp.i
+	$(MAKE) -f CMakeFiles/generate-past.dir/build.make CMakeFiles/generate-past.dir/src/barrier_l.cpp.i
 	$(MAKE) -f CMakeFiles/opt-test.dir/build.make CMakeFiles/opt-test.dir/src/barrier_l.cpp.i
 	$(MAKE) -f CMakeFiles/pricer.dir/build.make CMakeFiles/pricer.dir/src/barrier_l.cpp.i
 .PHONY : src/barrier_l.cpp.i
@@ -280,6 +301,7 @@ src/barrier_l.s: src/barrier_l.cpp.s
 # target to generate assembly for a file
 src/barrier_l.cpp.s:
 	$(MAKE) -f CMakeFiles/bs-test.dir/build.make CMakeFiles/bs-test.dir/src/barrier_l.cpp.s
+	$(MAKE) -f CMakeFiles/generate-past.dir/build.make CMakeFiles/generate-past.dir/src/barrier_l.cpp.s
 	$(MAKE) -f CMakeFiles/opt-test.dir/build.make CMakeFiles/opt-test.dir/src/barrier_l.cpp.s
 	$(MAKE) -f CMakeFiles/pricer.dir/build.make CMakeFiles/pricer.dir/src/barrier_l.cpp.s
 .PHONY : src/barrier_l.cpp.s
@@ -290,6 +312,7 @@ src/barrier_u.o: src/barrier_u.cpp.o
 # target to build an object file
 src/barrier_u.cpp.o:
 	$(MAKE) -f CMakeFiles/bs-test.dir/build.make CMakeFiles/bs-test.dir/src/barrier_u.cpp.o
+	$(MAKE) -f CMakeFiles/generate-past.dir/build.make CMakeFiles/generate-past.dir/src/barrier_u.cpp.o
 	$(MAKE) -f CMakeFiles/opt-test.dir/build.make CMakeFiles/opt-test.dir/src/barrier_u.cpp.o
 	$(MAKE) -f CMakeFiles/pricer.dir/build.make CMakeFiles/pricer.dir/src/barrier_u.cpp.o
 .PHONY : src/barrier_u.cpp.o
@@ -300,6 +323,7 @@ src/barrier_u.i: src/barrier_u.cpp.i
 # target to preprocess a source file
 src/barrier_u.cpp.i:
 	$(MAKE) -f CMakeFiles/bs-test.dir/build.make CMakeFiles/bs-test.dir/src/barrier_u.cpp.i
+	$(MAKE) -f CMakeFiles/generate-past.dir/build.make CMakeFiles/generate-past.dir/src/barrier_u.cpp.i
 	$(MAKE) -f CMakeFiles/opt-test.dir/build.make CMakeFiles/opt-test.dir/src/barrier_u.cpp.i
 	$(MAKE) -f CMakeFiles/pricer.dir/build.make CMakeFiles/pricer.dir/src/barrier_u.cpp.i
 .PHONY : src/barrier_u.cpp.i
@@ -310,6 +334,7 @@ src/barrier_u.s: src/barrier_u.cpp.s
 # target to generate assembly for a file
 src/barrier_u.cpp.s:
 	$(MAKE) -f CMakeFiles/bs-test.dir/build.make CMakeFiles/bs-test.dir/src/barrier_u.cpp.s
+	$(MAKE) -f CMakeFiles/generate-past.dir/build.make CMakeFiles/generate-past.dir/src/barrier_u.cpp.s
 	$(MAKE) -f CMakeFiles/opt-test.dir/build.make CMakeFiles/opt-test.dir/src/barrier_u.cpp.s
 	$(MAKE) -f CMakeFiles/pricer.dir/build.make CMakeFiles/pricer.dir/src/barrier_u.cpp.s
 .PHONY : src/barrier_u.cpp.s
@@ -320,6 +345,7 @@ src/basket.o: src/basket.cpp.o
 # target to build an object file
 src/basket.cpp.o:
 	$(MAKE) -f CMakeFiles/bs-test.dir/build.make CMakeFiles/bs-test.dir/src/basket.cpp.o
+	$(MAKE) -f CMakeFiles/generate-past.dir/build.make CMakeFiles/generate-past.dir/src/basket.cpp.o
 	$(MAKE) -f CMakeFiles/opt-test.dir/build.make CMakeFiles/opt-test.dir/src/basket.cpp.o
 	$(MAKE) -f CMakeFiles/pricer.dir/build.make CMakeFiles/pricer.dir/src/basket.cpp.o
 .PHONY : src/basket.cpp.o
@@ -330,6 +356,7 @@ src/basket.i: src/basket.cpp.i
 # target to preprocess a source file
 src/basket.cpp.i:
 	$(MAKE) -f CMakeFiles/bs-test.dir/build.make CMakeFiles/bs-test.dir/src/basket.cpp.i
+	$(MAKE) -f CMakeFiles/generate-past.dir/build.make CMakeFiles/generate-past.dir/src/basket.cpp.i
 	$(MAKE) -f CMakeFiles/opt-test.dir/build.make CMakeFiles/opt-test.dir/src/basket.cpp.i
 	$(MAKE) -f CMakeFiles/pricer.dir/build.make CMakeFiles/pricer.dir/src/basket.cpp.i
 .PHONY : src/basket.cpp.i
@@ -340,6 +367,7 @@ src/basket.s: src/basket.cpp.s
 # target to generate assembly for a file
 src/basket.cpp.s:
 	$(MAKE) -f CMakeFiles/bs-test.dir/build.make CMakeFiles/bs-test.dir/src/basket.cpp.s
+	$(MAKE) -f CMakeFiles/generate-past.dir/build.make CMakeFiles/generate-past.dir/src/basket.cpp.s
 	$(MAKE) -f CMakeFiles/opt-test.dir/build.make CMakeFiles/opt-test.dir/src/basket.cpp.s
 	$(MAKE) -f CMakeFiles/pricer.dir/build.make CMakeFiles/pricer.dir/src/basket.cpp.s
 .PHONY : src/basket.cpp.s
@@ -350,6 +378,7 @@ src/bs.o: src/bs.cpp.o
 # target to build an object file
 src/bs.cpp.o:
 	$(MAKE) -f CMakeFiles/bs-test.dir/build.make CMakeFiles/bs-test.dir/src/bs.cpp.o
+	$(MAKE) -f CMakeFiles/generate-past.dir/build.make CMakeFiles/generate-past.dir/src/bs.cpp.o
 	$(MAKE) -f CMakeFiles/pricer.dir/build.make CMakeFiles/pricer.dir/src/bs.cpp.o
 .PHONY : src/bs.cpp.o
 
@@ -359,6 +388,7 @@ src/bs.i: src/bs.cpp.i
 # target to preprocess a source file
 src/bs.cpp.i:
 	$(MAKE) -f CMakeFiles/bs-test.dir/build.make CMakeFiles/bs-test.dir/src/bs.cpp.i
+	$(MAKE) -f CMakeFiles/generate-past.dir/build.make CMakeFiles/generate-past.dir/src/bs.cpp.i
 	$(MAKE) -f CMakeFiles/pricer.dir/build.make CMakeFiles/pricer.dir/src/bs.cpp.i
 .PHONY : src/bs.cpp.i
 
@@ -368,6 +398,7 @@ src/bs.s: src/bs.cpp.s
 # target to generate assembly for a file
 src/bs.cpp.s:
 	$(MAKE) -f CMakeFiles/bs-test.dir/build.make CMakeFiles/bs-test.dir/src/bs.cpp.s
+	$(MAKE) -f CMakeFiles/generate-past.dir/build.make CMakeFiles/generate-past.dir/src/bs.cpp.s
 	$(MAKE) -f CMakeFiles/pricer.dir/build.make CMakeFiles/pricer.dir/src/bs.cpp.s
 .PHONY : src/bs.cpp.s
 
@@ -401,6 +432,7 @@ src/parser.o: src/parser.cpp.o
 # target to build an object file
 src/parser.cpp.o:
 	$(MAKE) -f CMakeFiles/bs-test.dir/build.make CMakeFiles/bs-test.dir/src/parser.cpp.o
+	$(MAKE) -f CMakeFiles/generate-past.dir/build.make CMakeFiles/generate-past.dir/src/parser.cpp.o
 	$(MAKE) -f CMakeFiles/opt-test.dir/build.make CMakeFiles/opt-test.dir/src/parser.cpp.o
 	$(MAKE) -f CMakeFiles/parser-test.dir/build.make CMakeFiles/parser-test.dir/src/parser.cpp.o
 	$(MAKE) -f CMakeFiles/pricer.dir/build.make CMakeFiles/pricer.dir/src/parser.cpp.o
@@ -412,6 +444,7 @@ src/parser.i: src/parser.cpp.i
 # target to preprocess a source file
 src/parser.cpp.i:
 	$(MAKE) -f CMakeFiles/bs-test.dir/build.make CMakeFiles/bs-test.dir/src/parser.cpp.i
+	$(MAKE) -f CMakeFiles/generate-past.dir/build.make CMakeFiles/generate-past.dir/src/parser.cpp.i
 	$(MAKE) -f CMakeFiles/opt-test.dir/build.make CMakeFiles/opt-test.dir/src/parser.cpp.i
 	$(MAKE) -f CMakeFiles/parser-test.dir/build.make CMakeFiles/parser-test.dir/src/parser.cpp.i
 	$(MAKE) -f CMakeFiles/pricer.dir/build.make CMakeFiles/pricer.dir/src/parser.cpp.i
@@ -423,10 +456,35 @@ src/parser.s: src/parser.cpp.s
 # target to generate assembly for a file
 src/parser.cpp.s:
 	$(MAKE) -f CMakeFiles/bs-test.dir/build.make CMakeFiles/bs-test.dir/src/parser.cpp.s
+	$(MAKE) -f CMakeFiles/generate-past.dir/build.make CMakeFiles/generate-past.dir/src/parser.cpp.s
 	$(MAKE) -f CMakeFiles/opt-test.dir/build.make CMakeFiles/opt-test.dir/src/parser.cpp.s
 	$(MAKE) -f CMakeFiles/parser-test.dir/build.make CMakeFiles/parser-test.dir/src/parser.cpp.s
 	$(MAKE) -f CMakeFiles/pricer.dir/build.make CMakeFiles/pricer.dir/src/parser.cpp.s
 .PHONY : src/parser.cpp.s
+
+src/past.o: src/past.cpp.o
+.PHONY : src/past.o
+
+# target to build an object file
+src/past.cpp.o:
+	$(MAKE) -f CMakeFiles/generate-past.dir/build.make CMakeFiles/generate-past.dir/src/past.cpp.o
+.PHONY : src/past.cpp.o
+
+src/past.i: src/past.cpp.i
+.PHONY : src/past.i
+
+# target to preprocess a source file
+src/past.cpp.i:
+	$(MAKE) -f CMakeFiles/generate-past.dir/build.make CMakeFiles/generate-past.dir/src/past.cpp.i
+.PHONY : src/past.cpp.i
+
+src/past.s: src/past.cpp.s
+.PHONY : src/past.s
+
+# target to generate assembly for a file
+src/past.cpp.s:
+	$(MAKE) -f CMakeFiles/generate-past.dir/build.make CMakeFiles/generate-past.dir/src/past.cpp.s
+.PHONY : src/past.cpp.s
 
 src/performance.o: src/performance.cpp.o
 .PHONY : src/performance.o
@@ -434,6 +492,7 @@ src/performance.o: src/performance.cpp.o
 # target to build an object file
 src/performance.cpp.o:
 	$(MAKE) -f CMakeFiles/bs-test.dir/build.make CMakeFiles/bs-test.dir/src/performance.cpp.o
+	$(MAKE) -f CMakeFiles/generate-past.dir/build.make CMakeFiles/generate-past.dir/src/performance.cpp.o
 	$(MAKE) -f CMakeFiles/opt-test.dir/build.make CMakeFiles/opt-test.dir/src/performance.cpp.o
 	$(MAKE) -f CMakeFiles/pricer.dir/build.make CMakeFiles/pricer.dir/src/performance.cpp.o
 .PHONY : src/performance.cpp.o
@@ -444,6 +503,7 @@ src/performance.i: src/performance.cpp.i
 # target to preprocess a source file
 src/performance.cpp.i:
 	$(MAKE) -f CMakeFiles/bs-test.dir/build.make CMakeFiles/bs-test.dir/src/performance.cpp.i
+	$(MAKE) -f CMakeFiles/generate-past.dir/build.make CMakeFiles/generate-past.dir/src/performance.cpp.i
 	$(MAKE) -f CMakeFiles/opt-test.dir/build.make CMakeFiles/opt-test.dir/src/performance.cpp.i
 	$(MAKE) -f CMakeFiles/pricer.dir/build.make CMakeFiles/pricer.dir/src/performance.cpp.i
 .PHONY : src/performance.cpp.i
@@ -454,6 +514,7 @@ src/performance.s: src/performance.cpp.s
 # target to generate assembly for a file
 src/performance.cpp.s:
 	$(MAKE) -f CMakeFiles/bs-test.dir/build.make CMakeFiles/bs-test.dir/src/performance.cpp.s
+	$(MAKE) -f CMakeFiles/generate-past.dir/build.make CMakeFiles/generate-past.dir/src/performance.cpp.s
 	$(MAKE) -f CMakeFiles/opt-test.dir/build.make CMakeFiles/opt-test.dir/src/performance.cpp.s
 	$(MAKE) -f CMakeFiles/pricer.dir/build.make CMakeFiles/pricer.dir/src/performance.cpp.s
 .PHONY : src/performance.cpp.s
@@ -562,6 +623,7 @@ help:
 	@echo "... depend"
 	@echo "... bs-test"
 	@echo "... edit_cache"
+	@echo "... generate-past"
 	@echo "... install"
 	@echo "... install/local"
 	@echo "... install/strip"
@@ -594,6 +656,9 @@ help:
 	@echo "... src/parser.o"
 	@echo "... src/parser.i"
 	@echo "... src/parser.s"
+	@echo "... src/past.o"
+	@echo "... src/past.i"
+	@echo "... src/past.s"
 	@echo "... src/performance.o"
 	@echo "... src/performance.i"
 	@echo "... src/performance.s"

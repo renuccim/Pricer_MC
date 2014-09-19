@@ -10,7 +10,6 @@ Asian::Asian(Parser *P)
 	P->extract("option size", this->size_);
 	P->extract("option type", this->optionType_);
 	P->extract("strike", this->K_);
-	cout << "First K " << this->K_ << endl;
 }
 
 Asian::~Asian()

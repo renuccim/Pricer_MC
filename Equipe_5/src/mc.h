@@ -44,7 +44,7 @@ public:
    * @param[out] ic contient la largeur de l'intervalle
    * de confiance sur le calcul du prix
    */
-//  void price(const PnlMat *past, double t, double &prix, double &ic);
+  void price(const PnlMat *past, double t, double &prix, double &ic);
 };
 
 #endif /* _MC_H */

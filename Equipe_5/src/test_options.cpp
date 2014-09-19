@@ -40,13 +40,7 @@ int main(int argc, char **argv)
 	double payoff = opt_->payoff(path);
 	cout << payoff << endl;
 	pnl_mat_free(&path);
-	if ( path== NULL) cout <<"path supprimé"<<endl;
 	delete opt_;
-	if ( opt_== NULL) cout <<"option bien supprimée"<<endl;
 	delete P;
-	
-	if ( P== NULL) cout <<"parseur bien supprimé"<<endl;
-	
-	
-        exit(0);
+	exit(0);
 }

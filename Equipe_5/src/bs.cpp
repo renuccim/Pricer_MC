@@ -72,11 +72,12 @@ void BS::asset(PnlMat *path, double T, int N, PnlRng *rng)
 	pnl_vect_free(&Ld);
 }
 
-void BS::asset(PnlMat *path, double t, int N, double T,
-             PnlRng *rng, const PnlMat *past)
+void BS::asset(PnlMat *path, double t, int N, double T, PnlRng *rng, const PnlMat *past)
 {
 	int pastSize = floor( (N/T)*t );
 	double step = T/N;
+	double prodScal = 0;
+	double sigma_d = 0;
 	// Copy of the past on the generated path
 	for(int ti=0; ti <= pastSize; ti++)
 	{
@@ -87,8 +88,8 @@ void BS::asset(PnlMat *path, double t, int N, double T,
 	}
 	// The vector St
 	PnlVect *St = pnl_vect_create_from_zero(this->size_);
-	for(int d=0; d < this->size; d++)
-		pnl_vect_set(St,d,MGET(past,pastSize+1,d);
+	for(int d=0; d < this->size_; d++)
+		pnl_vect_set(St,d,MGET(past,pastSize+1,d));
 	// The Gaussian vector
 	PnlVect *G = pnl_vect_create_from_zero(this->size_);
 	PnlVect *Ld = pnl_vect_create_from_zero(this->size_);	
