@@ -34,6 +34,9 @@ int main(int argc, char **argv)
   cout << "spot "; pnl_vect_print_asrow(spot);
   cout << "volatility "; pnl_vect_print_asrow(sigma);
 
-
+  delete(P);
+  pnl_vect_free(&spot);
+  pnl_vect_free(&sigma);
+  pnl_vect_free(&divid);
   exit(0);
 }
