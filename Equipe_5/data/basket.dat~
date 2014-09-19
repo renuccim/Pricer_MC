@@ -17,7 +17,6 @@ option type <string> basket
 payoff coefficients <vector> 1
 #0.025
 
-timestep number <int> 5
-#1
+timestep number <int> 1
 sample number <int> 50000
 

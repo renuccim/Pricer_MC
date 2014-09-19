@@ -60,8 +60,18 @@ public:
    * @param[in] d indice du sous-jacent à shifter
    * @param[in] timestep pas de constatation du sous-jacent
    */
-//  void shift_asset(PnlMat *shift_path, const PnlMat *path,
- //                  int d, double h, double t, double timestep);
+  void shift_asset(PnlMat *shift_path, const PnlMat *path,
+                  int d, double h, double t, double T, double timestep);
+
+	/**
+   * Génère une simulation du marché et la stocke dans path
+   *
+   * @param[out] path contient une simulation du marché.
+   * C'est une matrice de taille (H+1) x d
+   * @param[in] T  maturité
+   * @param[in] H nombre de dates de constatation
+   */
+  void simul_market(PnlMat *path, double T, int H, PnlRng *rng);
 
 };
 

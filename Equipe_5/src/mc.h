@@ -55,7 +55,39 @@ public:
    * @param[in] t date à laquelle le calcul est fait
    * @param[out] delta contient le vecteur de delta
    */
+  void delta_(const PnlMat *past, double t, PnlVect *delta);
+
+	/**
+   * Calcule le delta de l'option à la date t
+   *
+   * @param[in] past contient la trajectoire du sous-jacent
+   * jusqu'à l'instant t
+   * @param[in] t date à laquelle le calcul est fait
+   * @param[out] delta contient le vecteur de delta
+   */
   void delta(const PnlMat *past, double t, PnlVect *delta);
+
+	/**
+   * Construit le portefeuille de couverture et calcule le P&L
+   *
+	 * @param[in]  H nombre de date de constatation
+	 * @param[in]  marketPath matrice de taille d x (H+1) qui contient
+	 * une simulation du marché
+   * @param[out] V vecteur des valeurs de portefeuille de couverture
+	 * de dimension H+1
+   * @param[out] PL Profit and Loss
+   */
+  void hedge(PnlVect *V, double &PL, int H, const PnlMat *marketPath);
+
+	/**
+   * Construit le portefeuille de couverture et calcule le P&L
+   *
+	 * @param[in]  H nombre de date de constatation
+   * @param[out] V vecteur des valeurs de portefeuille de couverture
+	 * de dimension H+1
+   * @param[out] PL Profit and Loss
+   */
+  void hedge(PnlVect *V, double &PL, int H);
 };
 
 #endif /* _MC_H */
