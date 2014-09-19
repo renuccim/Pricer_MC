@@ -1,2 +1,0 @@
-/user/7/.base/kachmatn/home/S5/Pricer_MC/Equipe_5/CMakeFiles/opt-test.dir
-/user/7/.base/kachmatn/home/S5/Pricer_MC/Equipe_5/CMakeFiles/parser-test.dir
