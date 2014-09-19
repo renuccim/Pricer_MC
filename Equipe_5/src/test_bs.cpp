@@ -1,16 +1,6 @@
 #include <iostream>
-#include <time.h>
 #include "parser.h"
-#include "option.h"
-#include "asian.h"
-#include "basket.h"
-#include "barrier_l.h"
-#include "barrier_u.h"
-#include "barrier.h"
-#include "performance.h"
-#include "bs.h"
-#include "pnl/pnl_matrix.h"
-#include "pnl/pnl_random.h"
+#include "BS.h"
 
 
 using namespace std;
@@ -19,7 +9,6 @@ int main(int argc, char **argv)
 {
   char *infile = argv[1];
   Parser *P = new Parser(infile);
-	
 	char* optionType;
 	P->extract("option type",optionType);
 	

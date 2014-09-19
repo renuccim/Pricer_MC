@@ -9,7 +9,7 @@ Barrier_u::Barrier_u(Parser *P)
 	P->extract("timestep number", this->TimeSteps_);
 	P->extract("option size", this->size_);
 	P->extract("option type", this->optionType_);
-	P->extract("K", this->K_);
+	P->extract("strike", this->K_);
 	P->extract("payoff coefficients", this->payoffCoefficients_, this->size_);
 	P->extract("upper barrier", this->upperBarrier_, this->size_);
 }

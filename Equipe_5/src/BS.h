@@ -1,6 +1,8 @@
 #ifndef _BS_H
 #define _BS_H
 
+#include <iostream>
+#include "parser.h"
 #include "pnl/pnl_random.h"
 #include "pnl/pnl_vector.h"
 #include "pnl/pnl_matrix.h"
@@ -10,11 +12,18 @@
 class BS
 {
 public:
-  int size_; /// nombre d'actifs du modèle
-  double r_; /// taux d'intérêt
-  double rho_; /// paramètre de corrélation
-  PnlVect *sigma_; /// vecteur de volatilités
-  PnlVect *spot_; /// valeurs initiales du sous-jacent
+      int size_; /// nombre d'actifs du modèle
+      double r_; /// taux d'intérêt
+      double rho_; /// paramètre de corrélation
+      PnlVect *sigma_; /// vecteur de volatilités
+      PnlVect *spot_; /// valeurs initiales du sous-jacent
+      PnlVect *trend_; /// vecteur des tendances des sous-jacent
+      PnlMat *L; /// Cholesky factorization of the correlation matrix
+
+  BS(Parser *P);
+  BS(int size_,double r_,double rho_,PnlVect *sigma_,PnlVect *spot_);
+  ~BS();
+
 
   /**
    * Génère une trajectoire du modèle et la stocke dans path

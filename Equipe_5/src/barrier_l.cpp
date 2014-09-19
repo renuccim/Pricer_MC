@@ -9,7 +9,7 @@ Barrier_l::Barrier_l(Parser *P)
 	P->extract("timestep number", this->TimeSteps_);
 	P->extract("option size", this->size_);
 	P->extract("option type", this->optionType_);
-	P->extract("K", this->K_);
+	P->extract("strike", this->K_);
 	P->extract("payoff coefficients", this->payoffCoefficients_, this->size_);
 	P->extract("lower barrier", this->lowerBarrier_, this->size_);
 }
@@ -21,6 +21,7 @@ Barrier_l::~Barrier_l()
 #endif
 	pnl_vect_free(&this->lowerBarrier_);
 	pnl_vect_free(&this->payoffCoefficients_);
+	cout << "~Barrier_l() : Successfull call of pnl_vect_free on payoff coefficients & lower barrier" << endl;
 #ifdef _DEBUG
 	cout << "~Barrier_l() : Successfull call of pnl_vect_free on payoff coefficients & lower barrier" << endl;
 #endif
