@@ -115,60 +115,64 @@ void BS::asset(PnlMat *path, double T, int N, PnlRng *rng){
 void BS::asset(PnlMat *path, double t, int N, double T,
           PnlRng *rng, const PnlMat *past){
 
-	pnl_mat_resize(path, size_, N+1);
+	pnl_mat_resize(path, N+1, size_);
 	pnl_mat_set_subblock(path, past, int(N*t), size_);
 
+	pnl_mat_print(path);
 
-	//PnlMat *L = pnl_mat_create_from_scalar(size_, size_, rho_);
 	PnlVect *W = pnl_vect_create(size_);
-
-	// for (int i = 0; i < size_; i++)
-	// {
-	// 	pnl_mat_set(L, i, i, 1);
-	// }
-
-	pnl_mat_chol(L);
 
 	double Sti_1;
 	double e;
 	double sigma_d;
 	double LdW;
-	PnlVect *Ld;
+	PnlVect *Ld = pnl_vect_create(size_);
 
 	int i = int(N*t)+1;
 	double t_  = T * (double(i)/double(N)) - t;
 
 	pnl_vect_rng_normal(W,size_,rng);
 
+
+	cout << "before BS" << endl;
 	for (int d = 0; d < size_; d++)
 	{
 		Sti_1 = pnl_mat_get(past, int(N*t), d);
 		sigma_d = pnl_vect_get(sigma_,d);
 		pnl_mat_get_row(Ld,L,d);
 		LdW = pnl_vect_scalar_prod(Ld,W);
-		e = exp(r_ - 0.5 * pow(sigma_d,2.0) ) * t_ + sigma_d * sqrt(t_) * LdW;
+		e = exp((r_ - 0.5 * pow(sigma_d,2.0) ) * t_ + sigma_d * sqrt(t_) * LdW);
 		pnl_mat_set(path, i, d, Sti_1*e);
 	}
+	cout << "after 1st for BS" << endl;
 
 	t_  = T/double(N);
 
-	for (int i = int(N*t) +2 ; i < N+1; i++)
+
+
+	for (int i = min(N,int(N*t)+2) ; i < N+1; i++)
 	{
+		cout << ""<< endl;
+		cout << "in 2nd for BS : " << i;
 		pnl_vect_rng_normal(W,size_,rng);
 
 		for (int d = 0; d < size_; d++)
 		{
+			cout << "  in 3rd for BS : " << d << endl;
 			Sti_1 = pnl_mat_get(path, i-1, d);
+			cout << " Here 1 ";
 			sigma_d = pnl_vect_get(sigma_,d);
+			cout << " Here 2 ";
 			pnl_mat_get_row(Ld,L,d);
+			cout << " Here 3 ";
 			LdW = pnl_vect_scalar_prod(Ld,W);
-			e = exp(r_ - 0.5 * pow(sigma_d,2.0) ) * t_ + sigma_d * sqrt(t_) * LdW;
+			cout << " Here 4 ";
+			e = exp((r_ - 0.5 * pow(sigma_d,2.0) ) * t_ + sigma_d * sqrt(t_) * LdW);
+			cout << " Here 5 ";
 			pnl_mat_set(path, i, d, Sti_1*e);
 		}
 	}
 
-	//pnl_mat_free(L);
-	//pnl_vect_free(&V);
 	pnl_vect_free(&Ld);
 	pnl_vect_free(&W);
 	

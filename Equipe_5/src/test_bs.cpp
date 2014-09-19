@@ -29,13 +29,18 @@ int main(int argc, char **argv)
 
   P->extract("maturity", T);
 
-  mod_->asset(path, T, N, rng);
-
+  PnlMat *past = pnl_mat_create(1,mod_->size_);
+  pnl_mat_set_row(past,mod_->spot_,0);
+  cout << "" << endl;
+  pnl_mat_print(past);
+  mod_->asset(path,0.0, N, T, rng, past);
   pnl_mat_print(path);
 
+
+  pnl_mat_free(&past);
   pnl_mat_free(&path);
   pnl_rng_free(&rng);
   delete P;
   delete mod_;
-  exit(0);
+exit(0);
 }
