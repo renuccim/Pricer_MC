@@ -5,6 +5,7 @@
 #include "pnl/pnl_vector.h"
 #include "pnl/pnl_matrix.h"
 #include <math.h>
+#include "parser.h"
 
 /// \brief Modèle de Black Scholes
 class BS
@@ -44,7 +45,7 @@ public:
    * @param[in] past trajectoire réalisée jusqu'a la date t
    */
 //  void asset(PnlMat *path, double t, int N, double T,
-             PnlRng *rng, const PnlMat *past);
+//             PnlRng *rng, const PnlMat *past);
   /**
    * Calcule le delta de l'option à la date t
    *

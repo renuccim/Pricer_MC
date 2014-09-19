@@ -14,7 +14,7 @@ public:
   double K_; /// Strike
 
 	Asian(Parser *P);
-	~Asian();
+	virtual ~Asian();
 
   /**
    * Calcule la valeur du payoff sur la trajectoire
