@@ -89,8 +89,7 @@ void MonteCarlo::price(const PnlMat *past, double t, double &prix, double &ic)
 	pnl_mat_free(&generatedPath);
 }
 
-void MonteCarlo::delta(const PnlMat *past, double t, PnlVect *delta)
-{
+void MonteCarlo::delta(const PnlMat *past, double t, PnlVect *delta, PnlVect *ic){
 
 	int size = mod_->size_;
 	int N = opt_->TimeSteps_;
