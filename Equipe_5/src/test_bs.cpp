@@ -22,7 +22,9 @@ int main(int argc, char **argv)
   int N = 10;
 
   PnlMat *path = pnl_mat_create(N,mod_->size_);
-  PnlRng *rng;// = pnl_rng_new();
+  PnlRng *rng = pnl_rng_create(PNL_RNG_MERSENNE);
+  pnl_rng_sseed(rng,0);
+
   double T;
 
   P->extract("maturity", T);

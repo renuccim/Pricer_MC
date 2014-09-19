@@ -57,55 +57,54 @@ BS::~BS()
 
 void BS::asset(PnlMat *path, double T, int N, PnlRng *rng){
 
-	cout << "in BS" << endl;
+	//cout << "in BS" << endl;
 	
 	//nb rows and columns unreachable
 
 	pnl_mat_resize(path, N+1, size_);
 	pnl_mat_set_row(path, spot_, 0);
 
-	//PnlMat *L = pnl_mat_create_from_scalar(size_, N, rho_);
-
-	PnlVect *W;// = pnl_vect_create(size_);
-
-	//pnl_vect_rng_normal(W,size_,rng);
-
-	// for (int i = 0; i < size_; i++)
-	// {
-	// 	pnl_mat_set(L, i, i, 1);
-	// 	//pnl_vect_set(W,i,pnl_rng_normal(rng));
-	// }
-
-	//pnl_mat_chol(L);
+	PnlVect *W = pnl_vect_create(size_);
 
 	double Sti_1;
 	double e;
 	double sigma_d;
 	double t_  = T/double(N);
-	double LdW;
-	PnlVect *Ld;
 
-	cout << "before BS" << endl;
+	double LdW;
+
+	PnlVect *Ld = pnl_vect_create(size_);
+	//cout << "before BS" << endl;
 	for (int i = 1; i < N+1; i++)
 	{
-		cout << "before rng BS" << endl;
+
+		//cout << "A l instant i = " << i <<"  ";
+		//cout << "before rng BS" << endl;
 		pnl_vect_rng_normal(W,size_,rng);
-		cout << "after rng BS" << endl;
+		//pnl_vect_print(W);
+		//cout << "after rng BS" << endl;
 		
 		for (int d = 0; d < size_; d++)
 		{
+
+			//cout << " d = " << d ;
 			Sti_1 = pnl_mat_get(path, i-1, d);
-			cout << "get vect BS" << endl;
+			//cout << "   Sti_1_  : " << Sti_1 ;
+			//cout << "get vect BS" << endl;
 			sigma_d = pnl_vect_get(sigma_,d);
-			cout << "get row BS" << endl;
+			//cout << "   sigma_ : " << sigma_d;
 			pnl_mat_get_row(Ld,L,d);
-			cout << "scalar prod BS" << endl;
-			LdW = pnl_vect_scalar_prod(Ld,W);		
-			e = exp(r_ - 0.5 * pow(sigma_d,2.0) ) * t_ + sigma_d * sqrt(t_) * LdW;
+			//cout << "scalar prod BS" << endl;
+			LdW = pnl_vect_scalar_prod(Ld,W);
+			//cout << "   LdW : " << LdW;		
+			e = exp((r_ - 0.5 * pow(sigma_d,2.0) ) * t_ + sigma_d * sqrt(t_) * LdW);
+			//cout << "   Valeur " << exp(r_ - 0.5 * pow(sigma_d,2.0) ) * t_ ;
+			//cout << "      ";
 			pnl_mat_set(path, i, d, Sti_1*e);
 		}
+		//cout << "" << endl;
 	}
-	cout << "in out BS" << endl;
+	//cout << "in out BS" << endl;
 	//pnl_vect_free(&V);
 	pnl_vect_free(&Ld);
 	pnl_vect_free(&W);
