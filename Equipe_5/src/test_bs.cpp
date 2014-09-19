@@ -16,41 +16,38 @@ int main(int argc, char **argv)
 {
   char *infile = argv[1];
   Parser *P = new Parser(infile);
-	char* optionType;
-	P->extract("option type",optionType);
-	
-	BS *mod_ = new BS(P);
-	
-	Option *opt_;
-	if ( strcmp(optionType,"basket") == 0)
-		opt_ = new Basket(P);
-	else if ( strcmp(optionType,"asian") == 0)
-		opt_ = new Asian(P);
-	else if ( strcmp(optionType,"barrier_l") == 0)
-		opt_ = new Barrier_l(P);
-	else if ( strcmp(optionType,"barrier_u") == 0)
-		opt_ = new Barrier_u(P);
-	else if ( strcmp(optionType,"barrier") == 0)
-		opt_ = new Barrier(P);
-	else
-		opt_ = new Performance(P);
-	opt_->print();
-	
-	// Generateur aleatoire
-	PnlRng *rng = pnl_rng_create(PNL_RNG_MERSENNE);
-	pnl_rng_sseed(rng,time(NULL));
+
+  BS *mod_ = new BS(P);
+
+  cout << "option size " << mod_->size_ << endl;
+  cout << "interest rate " << mod_->r_ << endl;
+  cout << "correlation " << mod_->rho_ << endl;
+  cout << "spot "; pnl_vect_print_asrow(mod_->spot_);
+  cout << "volatility "; pnl_vect_print_asrow(mod_->sigma_);
+  cout << "L matrix " << endl; pnl_mat_print(mod_->L);
+
+  int N = 10;
+
+  PnlMat *path = pnl_mat_create(N,mod_->size_);
+  PnlRng *rng = pnl_rng_create(PNL_RNG_MERSENNE);
+  pnl_rng_sseed(rng,0);
+
+  double T;
+
+  P->extract("maturity", T);
+
+  PnlMat *past = pnl_mat_create(1,mod_->size_);
+  pnl_mat_set_row(past,mod_->spot_,0);
+  cout << "" << endl;
+  pnl_mat_print(past);
+  mod_->asset(path,0.0, N, T, rng, past);
+  pnl_mat_print(path);
 
 
-	//trajectoire test
-	PnlMat *path = pnl_mat_create_from_scalar(opt_->TimeSteps_+1,opt_->size_,0);
-
-	mod_->asset(path,opt_->T_, opt_->TimeSteps_, rng);
-		
-
-	pnl_mat_free(&path);
-	pnl_rng_free(&rng);
-	delete opt_;
-	delete mod_;
-	delete P;
-  exit(0);
+  pnl_mat_free(&past);
+  pnl_mat_free(&path);
+  pnl_rng_free(&rng);
+  delete P;
+  delete mod_;
+exit(0);
 }

@@ -89,3 +89,40 @@ void MonteCarlo::price(const PnlMat *past, double t, double &prix, double &ic)
 	pnl_mat_free(&generatedPath);
 }
 
+void MonteCarlo::delta(const PnlMat *past, double t, PnlVect *delta, PnlVect *ic){
+
+	int size = mod_->size_;
+	int N = opt_->TimeSteps_;
+
+	PnlMat *path = pnl_mat_create(size,N);
+
+	for (int i = 0; i < samples_; i++)
+	{
+		mod_.asset(path, t, N, T, rng, past);
+		for (int d = 0; d < size; d++)
+		{
+			for (int k = int(N*t)+1; k < ; k++)
+			{
+				pnl_mat_set(path, k, d, (1+h_) * pnl_mat_get(path, d, k));
+			}
+
+			pnl_vect_set(delta, d, opt_.payoff(path) + pnl_vect_get(delta,d));
+			
+			for (int k = int(N*t)+1; k < ; k++)
+			{
+				pnl_mat_set(path, k, d, (1-h_)/(1+h_) * pnl_mat_get(path, d, k));
+			}
+			
+			pnl_vect_set(delta, d, pnl_vect_get(delta,d) - opt_.payoff(path) );
+		}
+
+	}
+
+	for (int d = 0; d < size; d++)
+	{
+		pnl_vect_set(delta, d, exp((-mod_.r_)*(opt_.T_-t))/(samples_* 2 * h_ * pnl_mat_get(int(N*t),d)));
+
+	}
+
+	pnl_mat_free(path);
+}
