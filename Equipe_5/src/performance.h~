@@ -14,7 +14,7 @@ public:
   PnlVect *payoffCoefficients_; /// Coefficients intervenant dans le calcul du payoff
 
 	Performance(Parser *P);
-	virtual ~Performance();
+	~Performance();
 
   /**
    * Calcule la valeur du payoff sur la trajectoire

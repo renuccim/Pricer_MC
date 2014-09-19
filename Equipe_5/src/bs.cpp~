@@ -63,7 +63,7 @@ void BS::asset(PnlMat *path, double T, int N, PnlRng *rng)
 			pnl_mat_get_col(Ld,L,d);
 			prodScal = pnl_vect_scalar_prod(Ld,G)
 			sigma_d = GET(this->spot_,d);
-			MLET(path,d,ti) = MGET(path,d,ti-1)*exp( (this->r_-pow(sigma_d,2)/2)*step + sigma_d*sqrt(step)*prodScal );
+			MLET(path,d,ti) = MGET(path,d,ti-1)*exp( (this->r_-pow(sigma_d,2)/2)*Step + sigma_d*sqrt(Step)*prodScal );
 		}
 	}
 	

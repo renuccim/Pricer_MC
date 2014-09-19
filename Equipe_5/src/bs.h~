@@ -44,7 +44,7 @@ public:
    * @param[in] past trajectoire réalisée jusqu'a la date t
    */
 //  void asset(PnlMat *path, double t, int N, double T,
-//             PnlRng *rng, const PnlMat *past);
+             PnlRng *rng, const PnlMat *past);
   /**
    * Calcule le delta de l'option à la date t
    *
