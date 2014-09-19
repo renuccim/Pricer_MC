@@ -50,6 +50,12 @@ pnl/pnl_complex.h
 pnl/pnl_deprecated.h
 /matieres/5MMPMP/pnl-1.7.1/build/include/pnl/pnl/pnl_deprecated.h
 
+/user/7/.base/kachmatn/home/S5/Pricer_MC/Equipe_5/src/asian.cpp
+iostream
+-
+asian.h
+/user/7/.base/kachmatn/home/S5/Pricer_MC/Equipe_5/src/asian.h
+
 /user/7/.base/kachmatn/home/S5/Pricer_MC/Equipe_5/src/asian.h
 pnl/pnl_vector.h
 /user/7/.base/kachmatn/home/S5/Pricer_MC/Equipe_5/src/pnl/pnl_vector.h
@@ -61,6 +67,12 @@ parser.h
 /user/7/.base/kachmatn/home/S5/Pricer_MC/Equipe_5/src/parser.h
 option.h
 /user/7/.base/kachmatn/home/S5/Pricer_MC/Equipe_5/src/option.h
+
+/user/7/.base/kachmatn/home/S5/Pricer_MC/Equipe_5/src/barrier.cpp
+iostream
+-
+barrier.h
+/user/7/.base/kachmatn/home/S5/Pricer_MC/Equipe_5/src/barrier.h
 
 /user/7/.base/kachmatn/home/S5/Pricer_MC/Equipe_5/src/barrier.h
 pnl/pnl_vector.h
@@ -74,6 +86,12 @@ parser.h
 option.h
 /user/7/.base/kachmatn/home/S5/Pricer_MC/Equipe_5/src/option.h
 
+/user/7/.base/kachmatn/home/S5/Pricer_MC/Equipe_5/src/barrier_l.cpp
+iostream
+-
+barrier_l.h
+/user/7/.base/kachmatn/home/S5/Pricer_MC/Equipe_5/src/barrier_l.h
+
 /user/7/.base/kachmatn/home/S5/Pricer_MC/Equipe_5/src/barrier_l.h
 pnl/pnl_vector.h
 /user/7/.base/kachmatn/home/S5/Pricer_MC/Equipe_5/src/pnl/pnl_vector.h
@@ -86,6 +104,12 @@ parser.h
 option.h
 /user/7/.base/kachmatn/home/S5/Pricer_MC/Equipe_5/src/option.h
 
+/user/7/.base/kachmatn/home/S5/Pricer_MC/Equipe_5/src/barrier_u.cpp
+iostream
+-
+barrier_u.h
+/user/7/.base/kachmatn/home/S5/Pricer_MC/Equipe_5/src/barrier_u.h
+
 /user/7/.base/kachmatn/home/S5/Pricer_MC/Equipe_5/src/barrier_u.h
 pnl/pnl_vector.h
 /user/7/.base/kachmatn/home/S5/Pricer_MC/Equipe_5/src/pnl/pnl_vector.h
@@ -97,6 +121,12 @@ parser.h
 /user/7/.base/kachmatn/home/S5/Pricer_MC/Equipe_5/src/parser.h
 option.h
 /user/7/.base/kachmatn/home/S5/Pricer_MC/Equipe_5/src/option.h
+
+/user/7/.base/kachmatn/home/S5/Pricer_MC/Equipe_5/src/basket.cpp
+iostream
+-
+basket.h
+/user/7/.base/kachmatn/home/S5/Pricer_MC/Equipe_5/src/basket.h
 
 /user/7/.base/kachmatn/home/S5/Pricer_MC/Equipe_5/src/basket.h
 pnl/pnl_vector.h

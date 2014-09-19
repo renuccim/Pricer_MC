@@ -16,7 +16,7 @@ public:
 	PnlVect *lowerBarrier_; /// Lower Barrier
 
 	Barrier_l(Parser *P);
-	~Barrier_l();
+	virtual ~Barrier_l();
 
   /**
    * Calcule la valeur du payoff sur la trajectoire

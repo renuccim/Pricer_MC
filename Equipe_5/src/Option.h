@@ -11,6 +11,13 @@ public:
   double T_; /// maturité
   int TimeSteps_; /// nombre de pas de temps de discrétisation
   int size_; /// dimension du modèle, redondant avec BS::size_
+	
+	virtual ~Option()
+	{
+		#ifdef _DEBUG
+			cout << "~Option()" << endl;	
+		#endif
+	}
   /**
    * Calcule la valeur du payoff sur la trajectoire
    *
@@ -20,6 +27,7 @@ public:
    * @return phi(trajectoire)
    */
   virtual double payoff(const PnlMat *path) = 0;
+	virtual void print() = 0;
 };
 
 
