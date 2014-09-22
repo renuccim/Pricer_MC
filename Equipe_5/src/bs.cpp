@@ -74,8 +74,51 @@ void BS::asset(PnlMat *path, double T, int N, PnlRng *rng)
 
 void BS::asset(PnlMat *path, double t, int N, double T, PnlRng *rng, const PnlMat *past)
 {
-	pnl_mat_resize(path, N+1, size_);
-	pnl_mat_set_subblock(path, past, int(N*t), size_);
+	int lastIndexOfPast = floor( (N/T)*t );
+	double step = T/N;
+	double prodScal = 0;
+	double sigma_d = 0;
+	// Copy of the past on the generated path
+	for(int ti=0; ti < lastIndexOfPast; ti++)
+	{
+		for(int d=0; d < this->size_; d++)
+		{
+			MLET(path,ti,d) = MGET(past,ti,d);
+		}
+	}
+	// The vector St
+	PnlVect *St = pnl_vect_create_from_zero(this->size_);
+	for(int d=0; d < this->size_; d++)
+		pnl_vect_set(St,d,MGET(past,lastIndexOfPast,d));
+	// The Gaussian vector
+	PnlVect *G = pnl_vect_create_from_zero(this->size_);
+	PnlVect *Ld = pnl_vect_create_from_zero(this->size_);
+	// Generation from 2 to N+1(th) column
+	for(int ti=lastIndexOfPast; ti < N+1; ti++)
+	{
+		// Gaussian Dimension size_ generation
+		pnl_vect_rng_normal(G,this->size_,rng);
+		for(int d=0; d < this->size_; d++)
+		{
+			pnl_mat_get_row(Ld,L,d);
+			prodScal = pnl_vect_scalar_prod(Ld,G);
+			sigma_d = GET(this->sigma_,d);
+			if (ti == lastIndexOfPast)
+				MLET(path,ti,d) = GET(St,d)*exp( (this->r_-pow(sigma_d,2)/2)*(ti-t) + sigma_d*sqrt(ti-t)*prodScal );
+			else
+				MLET(path,ti,d) = MGET(path,ti-1,d)*exp( (this->r_-pow(sigma_d,2)/2)*step + sigma_d*sqrt(step)*prodScal );
+		}
+	}
+	// Memory free
+	pnl_vect_free(&G);
+	pnl_vect_free(&Ld);
+	pnl_vect_free(&St);
+}
+
+void BS::asset_(PnlMat *path, double t, int N, double T, PnlRng *rng, const PnlMat *past)
+{
+	//pnl_mat_resize(path, N+1, size_);
+	pnl_mat_set_subblock(path, past, int(N*t/T), size_);
 
 	//pnl_mat_print(path);
 

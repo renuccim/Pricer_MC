@@ -42,10 +42,15 @@ int main(int argc, char **argv)
 			std::string chemin;
 			cin >> chemin;
 			cout << " " << endl;
-			cout << "      Saisir t entre 0 et " << mc->opt_->T_ << " : ";
+			cout << "      Saisir t dans [0, " << mc->opt_->T_ << "] : ";
 			double t = 0;
 			cin >> t;
 			cout << " " << endl;
+			if (t > mc->opt_->T_)
+			{
+				cout << "      Erreur : t = " << t << " > Maturité de l'option !" << endl;
+				continue;               
+			}
 			PnlMat *past = pnl_mat_create_from_file(chemin.c_str());
 			mc->price(past, t, prix, ic);
 			cout << " ---- prix = " << prix << endl;
@@ -54,8 +59,14 @@ int main(int argc, char **argv)
 		}else if (choix == 4){
 			cout << " ---- Couverture ... " << endl;
 			int H = 0;
-			cout << "      Saisir le nombre de date de rebalancement du portefeuille de couverture H > " << mc->opt_->TimeSteps_ << " "  ;
+			cout << "      Saisir le nombre de date de rebalancement du portefeuille de couverture H > " << mc->opt_->TimeSteps_ << endl  ;
+			cout << "      Typiquement vous pouvez choisir une date par jour ou par semaine . H : " ;
 			cin >> H;
+			if (H < mc->opt_->TimeSteps_)
+			{
+				cout << "      Warning : H = " << H << " < TimeSteps " << endl;
+				continue;
+			}
 			PnlVect *V = pnl_vect_create_from_zero(H+1);
 			double PL = 0;
 			mc->hedge(V,PL,H);
@@ -63,11 +74,6 @@ int main(int argc, char **argv)
 			cout << " Profit & Loss : " << PL << endl;
 			pnl_vect_free(&V);
 		}else if (choix == 3){
-			// cout << "      Saisir le chemin de la matrice past : exemple past/basket.past ";
-			// std::string chemin;
-			// cin >> chemin;
-			// cout << " " << endl;	
-			// PnlMat *past = pnl_mat_create_from_file(chemin.c_str());
 			PnlMat *past = pnl_mat_create(1,mc->opt_->size_);
 			pnl_mat_set_row(past,mc->mod_->spot_,0);
 			PnlVect *delta = pnl_vect_create_from_zero(mc->opt_->size_);

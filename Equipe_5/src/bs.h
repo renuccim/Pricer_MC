@@ -47,6 +47,9 @@ public:
   void asset(PnlMat *path, double t, int N, double T,
              PnlRng *rng, const PnlMat *past);
 
+	void asset_(PnlMat *path, double t, int N, double T,
+             PnlRng *rng, const PnlMat *past);
+
   /**
    * Shift d'une trajectoire du sous-jacent
    *
