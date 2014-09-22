@@ -74,45 +74,66 @@ void BS::asset(PnlMat *path, double T, int N, PnlRng *rng)
 
 void BS::asset(PnlMat *path, double t, int N, double T, PnlRng *rng, const PnlMat *past)
 {
-	int pastSize = floor( (N/T)*t );
-	double step = T/N;
-	double prodScal = 0;
-	double sigma_d = 0;
-	// Copy of the past on the generated path
-	for(int ti=0; ti <= pastSize; ti++)
+	pnl_mat_resize(path, N+1, size_);
+	pnl_mat_set_subblock(path, past, int(N*t), size_);
+
+	//pnl_mat_print(path);
+
+	PnlVect *W = pnl_vect_create(size_);
+
+	double Sti_1;
+	double e;
+	double sigma_d;
+	double LdW;
+	PnlVect *Ld = pnl_vect_create(size_);
+
+	int i = int(N*t/T)+1;
+	double t_  = T * (double(i)/double(N)) - t;
+
+	pnl_vect_rng_normal(W,size_,rng);
+
+
+	//cout << "before BS" << endl;
+	for (int d = 0; d < size_; d++)
 	{
-		for(int d=0; d < this->size_; d++)
-		{
-			MLET(path,ti,d) = MGET(past,ti,d);
-		}
+		Sti_1 = pnl_mat_get(past, int(N*t), d);
+		sigma_d = pnl_vect_get(sigma_,d);
+		pnl_mat_get_row(Ld,L,d);
+		LdW = pnl_vect_scalar_prod(Ld,W);
+		e = exp((r_ - 0.5 * pow(sigma_d,2.0) ) * t_ + sigma_d * sqrt(t_) * LdW);
+		pnl_mat_set(path, i, d, Sti_1*e);
 	}
-	// The vector St
-	PnlVect *St = pnl_vect_create_from_zero(this->size_);
-	for(int d=0; d < this->size_; d++)
-		pnl_vect_set(St,d,MGET(past,pastSize+1,d));
-	// The Gaussian vector
-	PnlVect *G = pnl_vect_create_from_zero(this->size_);
-	PnlVect *Ld = pnl_vect_create_from_zero(this->size_);
-	// Generation from 2 to N+1(th) column
-	for(int ti=pastSize+1; ti < N+1; ti++)
+	//cout << "after 1st for BS" << endl;
+
+	t_  = T/double(N);
+
+
+
+	for (int i = int(N*t/T)+2 ; i < N+1; i++)
 	{
-		// Gaussian Dimension size_ generation
-		pnl_vect_rng_normal(G,this->size_,rng);
-		for(int d=0; d < this->size_; d++)
+		// cout << ""<< endl;
+		// cout << "in 2nd for BS : " << i;
+		pnl_vect_rng_normal(W,size_,rng);
+
+		for (int d = 0; d < size_; d++)
 		{
+			//cout << "  in 3rd for BS : " << d << endl;
+			Sti_1 = pnl_mat_get(path, i-1, d);
+			//cout << " Here 1 ";
+			sigma_d = pnl_vect_get(sigma_,d);
+			//cout << " Here 2 ";
 			pnl_mat_get_row(Ld,L,d);
-			prodScal = pnl_vect_scalar_prod(Ld,G);
-			sigma_d = GET(this->sigma_,d);
-			if (ti == pastSize+1)
-				MLET(path,ti,d) = GET(St,d)*exp( (this->r_-pow(sigma_d,2)/2)*(ti-t) + sigma_d*sqrt(ti-t)*prodScal );
-			else
-				MLET(path,ti,d) = MGET(path,ti-1,d)*exp( (this->r_-pow(sigma_d,2)/2)*step + sigma_d*sqrt(step)*prodScal );
+			//cout << " Here 3 ";
+			LdW = pnl_vect_scalar_prod(Ld,W);
+			//cout << " Here 4 ";
+			e = exp((r_ - 0.5 * pow(sigma_d,2.0) ) * t_ + sigma_d * sqrt(t_) * LdW);
+			//cout << " Here 5 ";
+			pnl_mat_set(path, i, d, Sti_1*e);
 		}
 	}
-	// Memory free
-	pnl_vect_free(&G);
+
 	pnl_vect_free(&Ld);
-	pnl_vect_free(&St);
+	pnl_vect_free(&W);
 }
 
 void BS::shift_asset(PnlMat *shift_path, const PnlMat *path, int d, double h, double t, double T, double timestep)

@@ -128,7 +128,7 @@ void BS::asset(PnlMat *path, double t, int N, double T,
 	double LdW;
 	PnlVect *Ld = pnl_vect_create(size_);
 
-	int i = int(N*t)+1;
+	int i = int(N*t/T)+1;
 	double t_  = T * (double(i)/double(N)) - t;
 
 	pnl_vect_rng_normal(W,size_,rng);
@@ -150,7 +150,7 @@ void BS::asset(PnlMat *path, double t, int N, double T,
 
 
 
-	for (int i = min(N,int(N*t)+2) ; i < N+1; i++)
+	for (int i = int(N*t/T)+2 ; i < N+1; i++)
 	{
 		cout << ""<< endl;
 		cout << "in 2nd for BS : " << i;

@@ -137,21 +137,33 @@ void MonteCarlo::delta_(const PnlMat *past, double t, PnlVect *delta)
 void MonteCarlo::delta(const PnlMat *past, double t, PnlVect *delta)
 {
 	pnl_vect_set_all(delta,0);
-	int pastSize = floor( (this->opt_->TimeSteps_/this->opt_->T_)*t );
+	int pastSize = 0;//floor( (this->opt_->TimeSteps_/this->opt_->T_)*t );
+	//cout << " pastSize " << pastSize << endl;
 	PnlMat *generatedPath = pnl_mat_create(this->opt_->TimeSteps_+1,this->opt_->size_);
 	PnlMat *shiftPath_Right = pnl_mat_create(this->opt_->TimeSteps_+1,this->opt_->size_);
 	PnlMat *shiftPath_Left = pnl_mat_create(this->opt_->TimeSteps_+1,this->opt_->size_);
 	double tmp = 0;
 	// The vector St
+	//cout << " opt_->size_ " << this->opt_->size_ << endl;
 	PnlVect *St = pnl_vect_create_from_zero(this->opt_->size_);
-	for(int d=0; d < this->opt_->size_; d++)
-		pnl_vect_set(St,d,MGET(past,pastSize+1,d));
+	for(int d=0; d < this->opt_->size_; d++){
+		//cout << " past(" << pastSize << "," << d << ") = " << MGET(past,pastSize,d) << endl;
+		pnl_vect_set(St,d,MGET(past,pastSize,d));
+		//cout << " For 1 clear index " << d << endl;
+	}
+
+	//cout << " For 1 clear " << endl;
+
+
 	for(int j=0; j<this->samples_; j++)
 	{
 		//Generation d'une trajectoire
+		//cout << " For 2 in " << endl;
+		//pnl_mat_print(generatedPath);
 		this->mod_->asset(generatedPath, t, this->opt_->TimeSteps_, this->opt_->T_, this->rng, past);
+		//cout << " For 2 clear index " << j << endl;
 		for(int d=0; d<this->mod_->size_; d++)
-		{		
+		{
 			// Shift à droite
 			this->mod_->shift_asset(shiftPath_Right, generatedPath, d, this->h_, t, this->opt_->T_, this->opt_->TimeSteps_);
 			// Shift à droite
@@ -159,12 +171,14 @@ void MonteCarlo::delta(const PnlMat *past, double t, PnlVect *delta)
 			// Delta payoff Right Left
 			tmp = this->opt_->payoff(shiftPath_Right)-this->opt_->payoff(shiftPath_Left);
 			pnl_vect_set(delta,d,GET(delta,d)+tmp);
+			//cout << " For 3 clear index " << d << endl;
 		}
 	}
 	for(int d=0; d<this->opt_->size_; d++)
 	{
 		pnl_vect_set(delta,d,GET(delta,d)*exp(-this->mod_->r_*(this->opt_->T_-t))/(this->samples_*this->h_*2*GET(St,d)));
 	}
+	//cout << " For 4 clear " << endl;
 	pnl_mat_free(&generatedPath);
 	pnl_mat_free(&shiftPath_Right);
 	pnl_mat_free(&shiftPath_Left);
