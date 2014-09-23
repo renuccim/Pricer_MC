@@ -1,5 +1,4 @@
 #include <iostream>
-#include <time.h>
 #include "bs.h"
 
 using namespace std;
@@ -74,12 +73,23 @@ void BS::asset(PnlMat *path, double T, int N, PnlRng *rng)
 
 void BS::asset(PnlMat *path, double t, int N, double T, PnlRng *rng, const PnlMat *past)
 {
-	int lastIndexOfPast = floor( (N/T)*t );
 	double step = T/N;
+	double dt = t/step;
+	double Error = abs(dt - round(dt))/(dt);
+	bool copySt = false;
+	int lastIndexOfPast = 0;
+	if (Error <= 0.05 )
+	{
+		lastIndexOfPast = round( dt );
+		copySt = true;
+	}else{
+		lastIndexOfPast = floor( dt );
+		copySt = false;
+	}
 	double prodScal = 0;
 	double sigma_d = 0;
 	// Copy of the past on the generated path
-	for(int ti=0; ti < lastIndexOfPast; ti++)
+	for(int ti=0; ti <= lastIndexOfPast; ti++)
 	{
 		for(int d=0; d < this->size_; d++)
 		{
@@ -89,12 +99,12 @@ void BS::asset(PnlMat *path, double t, int N, double T, PnlRng *rng, const PnlMa
 	// The vector St
 	PnlVect *St = pnl_vect_create_from_zero(this->size_);
 	for(int d=0; d < this->size_; d++)
-		pnl_vect_set(St,d,MGET(past,lastIndexOfPast,d));
+		pnl_vect_set(St,d,MGET(past,past->m-1,d));
 	// The Gaussian vector
 	PnlVect *G = pnl_vect_create_from_zero(this->size_);
 	PnlVect *Ld = pnl_vect_create_from_zero(this->size_);
 	// Generation from 2 to N+1(th) column
-	for(int ti=lastIndexOfPast; ti < N+1; ti++)
+	for(int ti=lastIndexOfPast+1; ti < N+1; ti++)
 	{
 		// Gaussian Dimension size_ generation
 		pnl_vect_rng_normal(G,this->size_,rng);
@@ -103,8 +113,8 @@ void BS::asset(PnlMat *path, double t, int N, double T, PnlRng *rng, const PnlMa
 			pnl_mat_get_row(Ld,L,d);
 			prodScal = pnl_vect_scalar_prod(Ld,G);
 			sigma_d = GET(this->sigma_,d);
-			if (ti == lastIndexOfPast)
-				MLET(path,ti,d) = GET(St,d)*exp( (this->r_-pow(sigma_d,2)/2)*(ti-t) + sigma_d*sqrt(ti-t)*prodScal );
+			if ( (ti == lastIndexOfPast+1) && (!copySt) )
+				MLET(path,ti,d) = GET(St,d)*exp( (this->r_-pow(sigma_d,2)/2)*(ti*step-t) + sigma_d*sqrt(ti*step-t)*prodScal );		
 			else
 				MLET(path,ti,d) = MGET(path,ti-1,d)*exp( (this->r_-pow(sigma_d,2)/2)*step + sigma_d*sqrt(step)*prodScal );
 		}
