@@ -63,7 +63,7 @@ void MonteCarlo::price(double &prix, double &ic)
 	}
 	prix = exp(-this->mod_->r_*this->opt_->T_)*(sumPayoff/this->samples_);
 	double x = exp(-2*this->mod_->r_*this->opt_->T_)*( (sumPayoffSquare/this->samples_) - (sumPayoff/this->samples_)*(sumPayoff/this->samples_) );
-	ic = 2*1.96*x/sqrt(this->samples_);
+	ic = 2*1.96*sqrt(x)/sqrt(this->samples_);
 	pnl_mat_free(&generatedPath);
 }
 
@@ -84,9 +84,9 @@ void MonteCarlo::price(const PnlMat *past, double t, double &prix, double &ic)
 		sumPayoff += payoff;
 		sumPayoffSquare += payoff*payoff;
 	}
-	prix = exp(-this->mod_->r_*this->opt_->T_)*(sumPayoff/this->samples_);
-	double x = exp(-2*this->mod_->r_*this->opt_->T_)*( (sumPayoffSquare/this->samples_) - (sumPayoff/this->samples_)*(sumPayoff/this->samples_) );
-	ic = 2*1.96*x/sqrt(this->samples_);
+	prix = exp(-this->mod_->r_*(this->opt_->T_-t))*(sumPayoff/this->samples_);
+	double x = exp(-2*this->mod_->r_*(this->opt_->T_-t))*( (sumPayoffSquare/this->samples_) - (sumPayoff/this->samples_)*(sumPayoff/this->samples_) );
+	ic = 2*1.96*sqrt(x)/sqrt(this->samples_);
 	pnl_mat_free(&generatedPath);
 }
 

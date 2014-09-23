@@ -4,7 +4,8 @@
 #include "pnl/pnl_random.h"
 #include "pnl/pnl_vector.h"
 #include "pnl/pnl_matrix.h"
-#include <math.h>
+#include <cmath>
+#include <ctime>
 #include "parser.h"
 
 /// \brief Modèle de Black Scholes
