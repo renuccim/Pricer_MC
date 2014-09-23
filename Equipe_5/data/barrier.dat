@@ -9,6 +9,7 @@ maturity <float> 2
 volatility <vector> 0.2
 interest rate  <float>  0.05
 correlation <float> 0.3
+trend <vector> 0.06
 
 option type <string> barrier
 payoff coefficients <vector> 0.2 0.2 0.2 0.2 0.2

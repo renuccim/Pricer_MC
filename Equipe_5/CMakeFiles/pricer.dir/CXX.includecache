@@ -88,6 +88,12 @@ parser.h
 option.h
 /user/7/.base/kachmatn/home/S5/Pricer_MC/Equipe_5/src/option.h
 
+/user/7/.base/kachmatn/home/S5/Pricer_MC/Equipe_5/src/barrier.cpp
+iostream
+-
+barrier.h
+/user/7/.base/kachmatn/home/S5/Pricer_MC/Equipe_5/src/barrier.h
+
 /user/7/.base/kachmatn/home/S5/Pricer_MC/Equipe_5/src/barrier.h
 pnl/pnl_vector.h
 /user/7/.base/kachmatn/home/S5/Pricer_MC/Equipe_5/src/pnl/pnl_vector.h

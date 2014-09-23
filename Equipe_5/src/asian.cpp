@@ -24,10 +24,8 @@ double Asian::payoff(const PnlMat *path)
 	PnlVect *ST = pnl_vect_create_from_zero(this->TimeSteps_+1);
 	// Dimension D = 1
 	pnl_mat_get_col(ST,path,0);
-	PnlVect *Id = pnl_vect_create_from_scalar(this->TimeSteps_+1,1);
-	double payoff = fmax( (pnl_vect_scalar_prod(Id,ST)/this->TimeSteps_) - this->K_ , 0);
+	double payoff = fmax( (pnl_vect_sum(ST)/this->TimeSteps_) - this->K_ , 0);
 	pnl_vect_free(&ST);
-	pnl_vect_free(&Id);
 	return payoff;
 }
 
