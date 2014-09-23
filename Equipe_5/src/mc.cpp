@@ -78,7 +78,8 @@ void MonteCarlo::price(const PnlMat *past, double t, double &prix, double &ic)
 	ic = 0;
 	for(int i=0; i < this->samples_; i++)
 	{
-		this->mod_->asset(generatedPath, t, this->opt_->TimeSteps_, this->opt_->T_, this->rng, past);
+		this->mod_->asset_(generatedPath, t, this->opt_->TimeSteps_, this->opt_->T_, this->rng, past);
+		pnl_mat_print(generatedPath);
 		payoff = this->opt_->payoff(generatedPath);
 		sumPayoff += payoff;
 		sumPayoffSquare += payoff*payoff;
