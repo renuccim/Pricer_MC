@@ -70,11 +70,11 @@ void MonteCarlo::price(double &prix, double &ic)
 
 void MonteCarlo::price(const PnlMat *past, double t, double &prix, double &ic)
 {
-	std::setprecision(9);
 	PnlMat *generatedPath = pnl_mat_create(this->opt_->TimeSteps_+1,this->opt_->size_);
 	double payoff = 0;
 	double sumPayoff = 0;
 	double sumPayoffSquare = 0;
+	double precision = this->samples_*(1.0e-16);
 	prix = 0;
 	ic = 0;
 	for(int i=0; i < this->samples_; i++)
@@ -85,7 +85,9 @@ void MonteCarlo::price(const PnlMat *past, double t, double &prix, double &ic)
 		sumPayoffSquare += payoff*payoff;
 	}
 	prix = exp(-this->mod_->r_*(this->opt_->T_-t))*(sumPayoff/this->samples_);
-	double x = exp(-2*this->mod_->r_*(this->opt_->T_-t))*( (sumPayoffSquare/this->samples_) - (sumPayoff/this->samples_)*(sumPayoff/this->samples_) );
+	double x = exp(-2*this->mod_->r_*(this->opt_->T_-t))*(sumPayoffSquare/this->samples_) - prix*prix;
+	if ( abs(x) < precision )
+		x = 0;	
 	cout << " ---- variance = " << x << endl;
 	ic = 2*1.96*sqrt(x)/sqrt(this->samples_);
 	pnl_mat_free(&generatedPath);

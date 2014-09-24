@@ -214,13 +214,3 @@ parser.h
 option.h
 /user/7/.base/kachmatn/home/S5/Pricer_MC/Equipe_5/src/option.h
 
-/user/7/.base/kachmatn/home/S5/Pricer_MC/Equipe_5/src/pricer.cpp
-iostream
--
-parser.h
-/user/7/.base/kachmatn/home/S5/Pricer_MC/Equipe_5/src/parser.h
-mc.h
-/user/7/.base/kachmatn/home/S5/Pricer_MC/Equipe_5/src/mc.h
-pnl/pnl_matrix.h
-/user/7/.base/kachmatn/home/S5/Pricer_MC/Equipe_5/src/pnl/pnl_matrix.h
-
