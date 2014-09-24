@@ -1,5 +1,4 @@
 #include <iostream>
-#include <time.h>
 #include "mc.h"
 
 using namespace std;
@@ -71,6 +70,7 @@ void MonteCarlo::price(double &prix, double &ic)
 
 void MonteCarlo::price(const PnlMat *past, double t, double &prix, double &ic)
 {
+	std::setprecision(9);
 	PnlMat *generatedPath = pnl_mat_create(this->opt_->TimeSteps_+1,this->opt_->size_);
 	double payoff = 0;
 	double sumPayoff = 0;
@@ -139,14 +139,14 @@ void MonteCarlo::hedge(PnlVect *V, double &PL, int H, const PnlMat *marketPath)
 	double value = 0;
 	
 	// Affichage des valeurs du portefeuille	
-	cout << "\t Date n° \t PortFolio Value " << endl;
+	cout << " ---- \t Date n° \t PortFolio Value " << endl;
 	// Initialisation du portefeuille
 	this->price(p,ic);
 	this->delta(marketPath,0,delta_cour);
 	pnl_mat_get_row(St,marketPath,0);
 	value = p-pnl_vect_scalar_prod(delta_cour,St);
 	pnl_vect_set(V,0,value);
-	cout << "\t " << 0 << " \t " << GET(V,0) << endl; 
+	cout << " ---- \t " << 0 << " \t " << GET(V,0) << endl; 
 	// Calcul des Vi
 	for(int i=1; i<H+1; i++)
 	{
@@ -156,7 +156,7 @@ void MonteCarlo::hedge(PnlVect *V, double &PL, int H, const PnlMat *marketPath)
 		pnl_mat_get_row(St,marketPath,i);
 		value = GET(V,i-1)*exp(this->mod_->r_*this->opt_->T_/H) + pnl_vect_scalar_prod(delta_prec,St);
 		pnl_vect_set(V,i,value);
-		cout << "\t " << i << " \t \t" << GET(V,i) << endl;
+		cout << " ---- \t " << i << " \t \t" << GET(V,i) << endl;
 	}
 	// payoff calcule le prix sur une trajectoire de taille d x (N+1)
 	// => Tmp = N ; N = H ; payoff(marketPath); N = Tmp;
@@ -165,6 +165,9 @@ void MonteCarlo::hedge(PnlVect *V, double &PL, int H, const PnlMat *marketPath)
 	double payoff = this->opt_->payoff(marketPath);
 	this->opt_->TimeSteps_ = tmp;
 	PL = GET(V,H) + pnl_vect_scalar_prod(delta_cour,St) - payoff;
+	cout << " " << endl;
+	cout << "  ---- Prix de l'option en 0 = " << p << endl;
+	cout << "  ---- Erreur de couverture relative en % = " << (PL/p)*100 << endl;
 	// memory free
 	pnl_vect_free(&St);
 	pnl_vect_free(&delta_cour);

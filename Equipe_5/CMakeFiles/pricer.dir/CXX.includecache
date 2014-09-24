@@ -136,12 +136,6 @@ parser.h
 option.h
 /user/7/.base/kachmatn/home/S5/Pricer_MC/Equipe_5/src/option.h
 
-/user/7/.base/kachmatn/home/S5/Pricer_MC/Equipe_5/src/bs.cpp
-iostream
--
-bs.h
-/user/7/.base/kachmatn/home/S5/Pricer_MC/Equipe_5/src/bs.h
-
 /user/7/.base/kachmatn/home/S5/Pricer_MC/Equipe_5/src/bs.h
 pnl/pnl_random.h
 /user/7/.base/kachmatn/home/S5/Pricer_MC/Equipe_5/src/pnl/pnl_random.h
@@ -158,8 +152,6 @@ parser.h
 
 /user/7/.base/kachmatn/home/S5/Pricer_MC/Equipe_5/src/mc.cpp
 iostream
--
-time.h
 -
 mc.h
 /user/7/.base/kachmatn/home/S5/Pricer_MC/Equipe_5/src/mc.h
@@ -186,6 +178,10 @@ parser.h
 cmath
 -
 cassert
+-
+ctime
+-
+iomanip
 -
 pnl/pnl_random.h
 /user/7/.base/kachmatn/home/S5/Pricer_MC/Equipe_5/src/pnl/pnl_random.h
@@ -217,4 +213,14 @@ parser.h
 /user/7/.base/kachmatn/home/S5/Pricer_MC/Equipe_5/src/parser.h
 option.h
 /user/7/.base/kachmatn/home/S5/Pricer_MC/Equipe_5/src/option.h
+
+/user/7/.base/kachmatn/home/S5/Pricer_MC/Equipe_5/src/pricer.cpp
+iostream
+-
+parser.h
+/user/7/.base/kachmatn/home/S5/Pricer_MC/Equipe_5/src/parser.h
+mc.h
+/user/7/.base/kachmatn/home/S5/Pricer_MC/Equipe_5/src/mc.h
+pnl/pnl_matrix.h
+/user/7/.base/kachmatn/home/S5/Pricer_MC/Equipe_5/src/pnl/pnl_matrix.h
 
