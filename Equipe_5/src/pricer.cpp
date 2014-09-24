@@ -70,7 +70,6 @@ int main(int argc, char **argv)
 			PnlVect *V = pnl_vect_create_from_zero(H+1);
 			double PL = 0;
 			mc->hedge(V,PL,H);
-			//pnl_vect_print_asrow(V);
 			cout << " Profit & Loss : " << PL << endl;
 			pnl_vect_free(&V);
 		}else if (choix == 3){

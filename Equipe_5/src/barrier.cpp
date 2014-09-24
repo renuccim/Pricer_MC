@@ -35,15 +35,15 @@ double Barrier::payoff(const PnlMat *path)
 	for(int ti=0; ti <= this->TimeSteps_; ti++)
 	{
 		pnl_mat_get_row(ST,path,ti);
-		for(int d=1; d<= this->size_; d++)
+		for(int d=0; d<= this->size_-1; d++)
 		{
-			indicatrice = indicatrice && (GET(this->upperBarrier_,d) >= GET(ST,d)) && (GET(this->lowerBarrier_,d) <= GET(ST,d));
+			indicatrice = indicatrice && (GET(this->lowerBarrier_,d) <= GET(ST,d)) && (GET(this->upperBarrier_,d) >= GET(ST,d));
 			if (!indicatrice)
 			{
 				pnl_vect_free(&ST);
 				return 0;
 			}
-		}
+		 }
 	}
 	double payoff = fmax(pnl_vect_scalar_prod(this->payoffCoefficients_,ST)-this->K_ , 0);
 	pnl_vect_free(&ST);

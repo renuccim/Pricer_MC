@@ -146,7 +146,7 @@ void MonteCarlo::delta(const PnlMat *past, double t, PnlVect *delta)
 	// The vector St
 	PnlVect *St = pnl_vect_create_from_zero(this->opt_->size_);
 	for(int d=0; d < this->opt_->size_; d++)
-		pnl_vect_set(St,d,MGET(past,pastSize,d));
+		pnl_vect_set(St,d,MGET(past,past->m-1,d));
 
 	for(int j=0; j<this->samples_; j++)
 	{
@@ -200,7 +200,7 @@ void MonteCarlo::hedge(PnlVect *V, double &PL, int H, const PnlMat *marketPath)
 		pnl_mat_get_row(St,marketPath,i);
 		value = GET(V,i-1)*exp(this->mod_->r_*this->opt_->T_/H) + pnl_vect_scalar_prod(delta_prec,St);
 		pnl_vect_set(V,i,value);
-		cout << "\t " << i << " \t " << GET(V,i) << endl;
+		cout << "\t " << i << " \t \t" << GET(V,i) << endl;
 	}
 	// payoff calcule le prix sur une trajectoire de taille d x (N+1)
 	// => Tmp = N ; N = H ; payoff(marketPath); N = Tmp;
@@ -218,7 +218,7 @@ void MonteCarlo::hedge(PnlVect *V, double &PL, int H, const PnlMat *marketPath)
 void MonteCarlo::hedge(PnlVect *V, double &PL, int H)
 {
 	PnlMat *marketPath = pnl_mat_create_from_zero(H+1, this->opt_->size_);
-	this->mod_->asset(marketPath, this->opt_->T_, H,  this->rng);
+	this->mod_->asset(marketPath, this->opt_->T_,H , this->rng);
 	this->hedge(V,PL,H,marketPath);
 	pnl_mat_free(&marketPath);
 }
