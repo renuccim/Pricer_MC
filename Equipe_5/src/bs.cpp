@@ -7,7 +7,10 @@ BS::BS(Parser *P)
 {
 	P->extract("option size",this->size_);
 	P->extract("interest rate",this->r_);
-	P->extract("correlation",this->rho_);
+	if (this->size_ > 1)
+		P->extract("correlation",this->rho_);
+	else	
+		this->rho_ = 1;
 	P->extract("volatility",this->sigma_, this->size_);	
 	P->extract("spot",this->spot_, this->size_);
 	P->extract("trend",this->trend_, this->size_);

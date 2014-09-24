@@ -50,13 +50,13 @@ pnl/pnl_complex.h
 pnl/pnl_deprecated.h
 /matieres/5MMPMP/pnl-1.7.1/build/include/pnl/pnl/pnl_deprecated.h
 
-/user/7/.base/kachmatn/home/S5/Pricer_MC/Equipe_5/src/barrier.cpp
+/user/7/.base/kachmatn/home/S5/Pricer_MC/Equipe_5/src/asian.cpp
 iostream
 -
-barrier.h
-/user/7/.base/kachmatn/home/S5/Pricer_MC/Equipe_5/src/barrier.h
+asian.h
+/user/7/.base/kachmatn/home/S5/Pricer_MC/Equipe_5/src/asian.h
 
-/user/7/.base/kachmatn/home/S5/Pricer_MC/Equipe_5/src/barrier.h
+/user/7/.base/kachmatn/home/S5/Pricer_MC/Equipe_5/src/asian.h
 pnl/pnl_vector.h
 /user/7/.base/kachmatn/home/S5/Pricer_MC/Equipe_5/src/pnl/pnl_vector.h
 pnl/pnl_matrix.h

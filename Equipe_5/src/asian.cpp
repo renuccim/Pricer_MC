@@ -21,11 +21,8 @@ Asian::~Asian()
 
 double Asian::payoff(const PnlMat *path)
 {
-	PnlVect *ST = pnl_vect_create_from_zero(this->TimeSteps_+1);
 	// Dimension D = 1
-	pnl_mat_get_col(ST,path,0);
-	double payoff = fmax( (pnl_vect_sum(ST)/this->TimeSteps_) - this->K_ , 0);
-	pnl_vect_free(&ST);
+	double payoff = fmax( (pnl_mat_sum(path)/(this->TimeSteps_+1)) - this->K_ , 0);
 	return payoff;
 }
 

@@ -20,7 +20,7 @@ int main(int argc, char **argv)
 	int choix = 0 ;
 	do{
 		cout << " 1 - pricing à t = 0 " << endl;
-		cout << " 2 - princing à t > 0 " << endl;
+		cout << " 2 - pricing à t > 0 " << endl;
 		cout << " 3 - delta à t = 0 " << endl;
 		cout << " 4 - couverture " << endl;
 		cout << " 5 - exit " << endl;
@@ -32,8 +32,8 @@ int main(int argc, char **argv)
 			double prix = 0;
 			double ic = 0;
 			mc->price(prix, ic);
-			cout << " ---- prix = " << prix << endl;
 			cout << " ---- ic   = " << ic << endl; 
+			cout << " ---- prix = " << prix << endl;
 		}else if (choix == 2){
 			cout << " ---- Pricing à t > 0 ... " << endl;
 			double prix = 0;
@@ -53,13 +53,13 @@ int main(int argc, char **argv)
 			}
 			PnlMat *past = pnl_mat_create_from_file(chemin.c_str());
 			mc->price(past, t, prix, ic);
-			cout << " ---- prix = " << prix << endl;
 			cout << " ---- ic   = " << ic << endl;
+			cout << " ---- prix = " << prix << endl;
 			pnl_mat_free(&past); 
 		}else if (choix == 4){
 			cout << " ---- Couverture ... " << endl;
 			int H = 0;
-			cout << "      Saisir le nombre de date de rebalancement du portefeuille de couverture H > " << mc->opt_->TimeSteps_ << endl  ;
+			cout << "      Saisir le nombre de date de rebalancement du portefeuille de couverture H qui soit multiple de " << mc->opt_->TimeSteps_ << endl  ;
 			cout << "      Typiquement vous pouvez choisir une date par jour ou par semaine . H : " ;
 			cin >> H;
 			if (H < mc->opt_->TimeSteps_)
