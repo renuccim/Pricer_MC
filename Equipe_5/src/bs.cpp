@@ -137,8 +137,24 @@ void BS::asset_(PnlMat *path, double t, int N, double T, PnlRng *rng, const PnlM
 	double Sti_1;
 	double e;
 	double sigma_d;
+	double step = T/N;
+	double dt = t/step;
+	bool copySt = false;
+	double Error = abs(dt - round(dt))/(dt);
 	double LdW;
 	PnlVect *Ld = pnl_vect_create(size_);
+	PnlVect *row = pnl_vect_create(size_);
+	int lastIndexOfPast = 0;
+
+
+	if (Error <= 0.05 )
+	{
+		lastIndexOfPast = round( dt );
+		copySt = true;
+	}else{
+		lastIndexOfPast = floor( dt );
+		copySt = false;
+	}
 
 	int i = int(N*t/T)+1;
 	double t_  = T * (double(i)/double(N)) - t;
@@ -147,16 +163,21 @@ void BS::asset_(PnlMat *path, double t, int N, double T, PnlRng *rng, const PnlM
 
 
 	//cout << "before BS" << endl;
-	for (int d = 0; d < size_; d++)
-	{
-		Sti_1 = pnl_mat_get(past, int(N*t), d);
-		sigma_d = pnl_vect_get(sigma_,d);
-		pnl_mat_get_row(Ld,L,d);
-		LdW = pnl_vect_scalar_prod(Ld,W);
-		e = exp((r_ - 0.5 * pow(sigma_d,2.0) ) * t_ + sigma_d * sqrt(t_) * LdW);
-		pnl_mat_set(path, i, d, Sti_1*e);
+	if ((!copySt)){
+		for (int d = 0; d < size_; d++)
+		{
+			Sti_1 = pnl_mat_get(past, int(N*t), d);
+			sigma_d = pnl_vect_get(sigma_,d);
+			pnl_mat_get_row(Ld,L,d);
+			LdW = pnl_vect_scalar_prod(Ld,W);
+			e = exp((r_ - 0.5 * pow(sigma_d,2.0) ) * t_ + sigma_d * sqrt(t_) * LdW);
+			pnl_mat_set(path, i, d, Sti_1*e);
+		}
+		//cout << "after 1st for BS" << endl;
+	}else{
+		pnl_mat_get_row(row,past,lastIndexOfPast);
+		pnl_mat_set_row(path,row,lastIndexOfPast);
 	}
-	//cout << "after 1st for BS" << endl;
 
 	t_  = T/double(N);
 

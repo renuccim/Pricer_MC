@@ -78,8 +78,8 @@ void MonteCarlo::price(const PnlMat *past, double t, double &prix, double &ic)
 	ic = 0;
 	for(int i=0; i < this->samples_; i++)
 	{
-		this->mod_->asset_(generatedPath, t, this->opt_->TimeSteps_, this->opt_->T_, this->rng, past);
-		pnl_mat_print(generatedPath);
+		this->mod_->asset(generatedPath, t, this->opt_->TimeSteps_, this->opt_->T_, this->rng, past);
+		//pnl_mat_print(generatedPath);
 		payoff = this->opt_->payoff(generatedPath);
 		sumPayoff += payoff;
 		sumPayoffSquare += payoff*payoff;
@@ -116,7 +116,7 @@ void MonteCarlo::delta_(const PnlMat *past, double t, PnlVect *delta)
 				pnl_mat_set(path, k, d, (1-h_)/(1+h_) * pnl_mat_get(path, k, d));
 			}
 			
-			pnl_vect_set(delta, d, pnl_vect_get(delta,d) - opt_->payoff(path) );
+			pnl_vect_set(delta, d, pnl_vect_get(delta,d) - opt_->payoff(path));
 
 			for (int k = int(N*t/T); k < N+1 ; k++)
 			{
@@ -218,7 +218,7 @@ void MonteCarlo::hedge(PnlVect *V, double &PL, int H, const PnlMat *marketPath)
 void MonteCarlo::hedge(PnlVect *V, double &PL, int H)
 {
 	PnlMat *marketPath = pnl_mat_create_from_zero(H+1, this->opt_->size_);
-	this->mod_->asset(marketPath, H, this->opt_->T_, this->rng);
+	this->mod_->asset(marketPath, this->opt_->T_, H,  this->rng);
 	this->hedge(V,PL,H,marketPath);
 	pnl_mat_free(&marketPath);
 }
