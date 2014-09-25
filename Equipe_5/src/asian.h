@@ -6,6 +6,7 @@
 #include <cmath>
 #include "parser.h"
 #include "option.h"
+#include <cassert>
 
 /// \brief Classe Option ASIAN
 class Asian : public Option

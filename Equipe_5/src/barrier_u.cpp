@@ -5,19 +5,19 @@ using namespace std;
 
 Barrier_u::Barrier_u(Parser *P)
 {
-	P->extract("maturity", this->T_);
-	P->extract("timestep number", this->TimeSteps_);
-	P->extract("option size", this->size_);
-	P->extract("option type", this->optionType_);
-	P->extract("strike", this->K_);
-	P->extract("payoff coefficients", this->payoffCoefficients_, this->size_);
-	P->extract("upper barrier", this->upperBarrier_, this->size_);
+	assert( P->extract("maturity", this->T_) &&
+			P->extract("timestep number", this->TimeSteps_) &&
+			P->extract("option size", this->size_) &&
+			P->extract("option type", this->optionType_) &&
+			P->extract("strike", this->K_) &&
+			P->extract("payoff coefficients", this->payoffCoefficients_, this->size_) &&
+			P->extract("upper barrier", this->upperBarrier_, this->size_) );
 }
 
 Barrier_u::~Barrier_u()
 {
 #ifdef _DEBUG
-	cout << "~Barrier_u() : Ready to call pnl_vect_free on payoff coefficients & upper barrier->->-> " << endl;
+	cout << "~Barrier_u() : Ready to call pnl_vect_free on payoff coefficients & upper barrier" << endl;
 #endif
 	pnl_vect_free(&this->upperBarrier_);
 	pnl_vect_free(&this->payoffCoefficients_);

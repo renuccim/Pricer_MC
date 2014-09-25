@@ -5,17 +5,17 @@ using namespace std;
 
 Performance::Performance(Parser *P)
 {
-	P->extract("maturity", this->T_);
-	P->extract("timestep number", this->TimeSteps_);
-	P->extract("option size", this->size_);
-	P->extract("option type", this->optionType_);
-	P->extract("payoff coefficients", this->payoffCoefficients_, this->size_);
+	assert( P->extract("maturity", this->T_) &&
+			P->extract("timestep number", this->TimeSteps_) &&
+			P->extract("option size", this->size_) &&
+			P->extract("option type", this->optionType_) &&
+			P->extract("payoff coefficients", this->payoffCoefficients_, this->size_) );
 }
 
 Performance::~Performance()
 {
 #ifdef _DEBUG
-	cout << "~Performance() : Ready to call pnl_vect_free on payoff coefficients ->->-> " << endl;
+	cout << "~Performance() : Ready to call pnl_vect_free on payoff coefficients " << endl;
 #endif
 	pnl_vect_free(&this->payoffCoefficients_);
 #ifdef _DEBUG

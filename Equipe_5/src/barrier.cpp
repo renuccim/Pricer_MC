@@ -5,20 +5,20 @@ using namespace std;
 
 Barrier::Barrier(Parser *P)
 {
-	P->extract("maturity", this->T_);
-	P->extract("timestep number", this->TimeSteps_);
-	P->extract("option size", this->size_);
-	P->extract("option type", this->optionType_);
-	P->extract("strike", this->K_);
-	P->extract("payoff coefficients", this->payoffCoefficients_, this->size_);
-	P->extract("lower barrier", this->lowerBarrier_, this->size_);
-	P->extract("upper barrier", this->upperBarrier_, this->size_);
+	assert( P->extract("maturity", this->T_) &&
+			P->extract("timestep number", this->TimeSteps_) &&
+			P->extract("option size", this->size_) &&
+			P->extract("option type", this->optionType_) &&
+			P->extract("strike", this->K_) &&
+			P->extract("payoff coefficients", this->payoffCoefficients_, this->size_) &&
+			P->extract("lower barrier", this->lowerBarrier_, this->size_) &&
+			P->extract("upper barrier", this->upperBarrier_, this->size_) );
 }
 
 Barrier::~Barrier()
 {
 #ifdef _DEBUG
-	cout << "~Barrier() : Ready to call pnl_vect_free on payoff coefficients & lower/upper barrier ->->-> " << endl;
+	cout << "~Barrier() : Ready to call pnl_vect_free on payoff coefficients & lower/upper barrier  " << endl;
 #endif
 	pnl_vect_free(&this->lowerBarrier_);
 	pnl_vect_free(&this->upperBarrier_);
@@ -32,10 +32,10 @@ double Barrier::payoff(const PnlMat *path)
 {
 	PnlVect *ST = pnl_vect_create_from_zero(this->size_);
 	bool indicatrice = true;
-	for(int ti=0; ti <= this->TimeSteps_; ti++)
+	for(int ti=0; ti < this->TimeSteps_+1; ti++)
 	{
 		pnl_mat_get_row(ST,path,ti);
-		for(int d=0; d<= this->size_-1; d++)
+		for(int d=0; d< this->size_; d++)
 		{
 			indicatrice = indicatrice && (GET(this->lowerBarrier_,d) <= GET(ST,d)) && (GET(this->upperBarrier_,d) >= GET(ST,d));
 			if (!indicatrice)

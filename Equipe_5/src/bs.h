@@ -6,6 +6,7 @@
 #include "pnl/pnl_matrix.h"
 #include <cmath>
 #include <ctime>
+#include <cassert>
 #include "parser.h"
 
 /// \brief Modèle de Black Scholes

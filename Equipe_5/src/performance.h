@@ -6,11 +6,12 @@
 #include <cmath>
 #include "parser.h"
 #include "option.h"
+#include <cassert>
+
 /// \brief Classe Option PERFORMANCE
 class Performance : public Option
 {
 public:
-  //double K_; /// Strike
   PnlVect *payoffCoefficients_; /// Coefficients intervenant dans le calcul du payoff
 
 	Performance(Parser *P);

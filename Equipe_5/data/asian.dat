@@ -5,11 +5,11 @@
 option size <int> 1
 strike <float> 100
 spot <vector> 100
+trend <vector> 0.06
 maturity <float> 2
 volatility <vector> 0.3
-correlation <float> 1
 interest rate   <float> 0.03
 option type <string> asian
-timestep number <int> 100
+timestep number <int> 10
 sample number <int> 100000
-trend <vector> 0.06
+correlation <float> 1

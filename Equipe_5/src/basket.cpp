@@ -5,12 +5,12 @@ using namespace std;
 
 Basket::Basket(Parser *P)
 {
-	P->extract("maturity", this->T_);
-	P->extract("timestep number", this->TimeSteps_);
-	P->extract("option size", this->size_);
-	P->extract("option type", this->optionType_);
-	P->extract("strike", this->K_);
-	P->extract("payoff coefficients", this->payoffCoefficients_, this->size_);
+	assert( P->extract("maturity", this->T_) &&
+			P->extract("timestep number", this->TimeSteps_) &&
+			P->extract("option size", this->size_) &&
+			P->extract("option type", this->optionType_) &&
+			P->extract("strike", this->K_) &&
+			P->extract("payoff coefficients", this->payoffCoefficients_, this->size_) );
 }
 
 Basket::~Basket()

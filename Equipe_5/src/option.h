@@ -4,7 +4,7 @@
 #include "pnl/pnl_vector.h"
 #include "pnl/pnl_matrix.h"
 
-#define _DEBUG
+// #define _DEBUG
 
 /// \brief Classe Option abstraite
 class Option
